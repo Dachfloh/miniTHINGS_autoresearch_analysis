@@ -1,0 +1,8 @@
+commit  val_acc status  description
+f6589ad 0.543330        discard TCN d320/k3/4lev/drop0.1 + warmup_cosine lr1e-3 (gap 0.93 overfit; lr likely too hot like transformer; sweep LR down)
+de19f6f 0.568900        discard TCN d320 + lr 1e-3->3e-4 (+0.026; lower LR helps TCN too, lesson generalizes; still below GRU/transformer)
+37b28b8 0.571900        discard TCN d320 + lr 3e-4->2e-4 (+0.003; TCN lr curve 1e-3=0.543,3e-4=0.569,2e-4=0.572; still below GRU/transformer)
+8cc21e0 0.572685        discard TCN d_model 320->640 at lr2e-4 (+0.0008 within noise; capacity barely helps TCN unlike tf/GRU; gap 0.96 heavy overfit, val loss 2.86 > transformer 2.60; TCN w
+eaker for this task)
+7015894 0.567200        discard TCN d640 + dropout 0.1->0.2 (over-reg, -0.006; TCN exhausted: LR peak 2e-4=0.573, capacity no help, dropout worse; TCN best 0.573 < GRU 0.5875 < transformer 0
+.607)

@@ -1,0 +1,5 @@
+plotting/
+__pycache__/
+*.pyc
+*.out
+**/._*

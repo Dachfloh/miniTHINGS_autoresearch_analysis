@@ -1,0 +1,14 @@
+commit	val_acc	status	description
+0f1ff8b	0.407870	keep	baseline (default config)
+759b080	0.385295	discard	dropout 0.5, weight_decay 0.05
+48f3f66	0.370375	discard	hidden_size 128, proj_dim 64
+c9a8031	0.308327	discard	loss_at_last_timestep False
+e79d4df	0.381062	discard	switch GRU to LSTM
+090a7b9	0.417694	keep	use MUA instead of LFP
+f673543	0.427493	keep	MUA + all ROIs V1+V4+IT
+748a805	0.427493	discard	cosine annealing LR scheduler (same as exp6)
+53a87f1	0.457332	keep	bidirectional GRU + MUA + all ROIs
+d607d30	0.456731	discard	biGRU + cosine annealing LR
+f01c245	0.436533	discard	hidden_size 128 biGRU
+b01a45f	0.433577	discard	batch_size 64
+463f786	0.445522	discard	disable channel selection

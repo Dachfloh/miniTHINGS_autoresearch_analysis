@@ -1,0 +1,9 @@
+commit  val_acc status  description
+25c4bbd 0.564484        baseline        disable channel selection (good_channel_threshold 1.5->0) at roi[2,3]/h640 (512 vs 390 chans; weaker chans add overfitting, train1.96/val2.94; -0.023 vs global best 0.587532)
+aaf4a9f 0.581984        keep    mixup 0.8->1.0 (512 chans; stronger aug for noisy input, +0.0175 over no-chansel baseline; within 0.006 of global best)
+b545851 0.583288        keep    mixup 1.0->1.2 (512 chans; +0.0013 over mixup1.0, mixup peak shifting up w/ noisy input; within 0.004 of global best)
+9eb1235 0.578045        discard dropout 0.3->0.4 on mixup1.2 (512 chans; over-regularized, -0.005 vs mixup1.2; dropout 0.3 still optimal)
+fac2fe6 0.574444        discard proj 320->384 on mixup1.2 (512 chans; relieve 512->384 bottleneck but added overfit, -0.009 vs mixup1.2/proj320; proj 320 optimal even at 512 chans)
+80dab12 0.573126        discard mixup 1.2->1.5 (512 chans; over-augments, -0.010 vs mixup1.2; mixup peak at ~1.2: 0.8=0.565,1.0=0.582,1.2=0.583,1.5=0.573)
+92d1f6e 0.555944        discard weight_decay 0.01->0.02 on mixup1.2 (512 chans; over-shrinks, -0.027 vs mixup1.2; wd 0.01 optimal)
+52eda51 0.581140        discard hidden 640->768/proj 320->384 on mixup1.2 (512 chans; -0.002 vs h640 within noise; capacity peak stays at h640 even at 512 chans)

@@ -1,0 +1,75 @@
+commit	val_acc	status	description
+77966a4	0.407870	keep	baseline (default config)
+ce0eed2	0.367000	discard	dropout 0.3 -> 0.1 (overfitting)
+ae7c2ee	0.370600	discard	hidden_size 64 -> 128 (overfitting)
+a263be3	0.417694	keep	neural_data lfp -> mua
+d0a7a08	0.295343	discard	loss_at_last_timestep True -> False
+b408da0	0.446462	keep	rois [3] -> [2,3] (V4+IT)
+ca10db7	0.427500	discard	rois [2,3] -> [1,2,3] (V1 added noise)
+b34c33e	0.463420	keep	proj_dim 32 -> 64
+a71fc77	0.433100	discard	GRU -> LSTM (overfitting)
+ecd5398	0.433100	discard	hidden_size 64 -> 128 v2 (overfitting)
+975ccd9	0.469089	keep	batch_size 32 -> 64
+dd34f6a	0.491434	keep	disable channel selection (good_channel_threshold -1)
+39dd6c8	0.463600	discard	proj_dim 64 -> 128 (overfitting)
+a4e62bf	0.485500	discard	bidirectional GRU (slight overfitting vs best)
+559bde9	0.485500	discard	batch_size 64 -> 128
+49ce6b7	0.475700	discard	lr 0.001 -> 0.0005
+dd34f6a	0.485600	discard	decode-time-first 50 -> 0 (added noise)
+18f635f	0.482700	discard	weight_decay 0.01 -> 0.005
+1bba3cb	0.490500	discard	add residual around GRU (no improvement)
+58b2939	0.467900	discard	classifier hidden layer (64->128->100, overfitting)
+b956b0a	0.469000	discard	standardize_data 1 -> 0
+dd34f6a	0.469000	discard	decode window 100-300ms (worse than 50-250ms)
+dd34f6a	0.425700	discard	decode-time-step 20 (lost signal)
+adaf006	0.425700	discard	dropout_p 0.3 -> 0.4 (too much regularization)
+f607e91	0.480200	discard	remove GRU (linear only, worse than GRU)
+72a4256	0.139900	crash	orthogonal/kaiming init broke training
+2125019	0.473400	discard	gradient clipping max_norm=1.0
+f742a87	0.474410	discard	AdamW -> SGD momentum=0.9
+a40f611	0.468400	discard	label_smoothing=0.1
+2f2c010	0.468400	discard	good_channel_threshold -1 -> 0.0
+0dd07a7	0.000000	crash	trial_averaged=True (groups mismatch in CV)
+deb78b1	0.472498	discard	self-attention after GRU (1 head)
+00832a6	0.477500	discard	good_channel_threshold -1 -> 0.5
+7b6b2e0	0.477500	discard	hidden_size 64 -> 48
+99212a0	0.000000	crash	arrays 1-16 -> 1-8 (zero channels loaded)
+dd34f6a	0.473800	discard	decode window 60-260ms (worse than 50-250ms)
+0ecd32e	0.489500	discard	2-layer GRU with dropout=0.3
+24b1359	0.483300	discard	rois [2,3] -> [3] (IT only)
+56c2813	0.404900	discard	GRU -> vanilla RNN (tanh, much worse)
+efae3de	0.406000	discard	ReduceLROnPlateau scheduler (hurt training)
+252de82	0.487900	discard	proj_dim 64 -> 80
+2d093f3	0.475400	discard	concatenate MUA and LFP
+dd26819	0.485900	discard	exclude session 5
+7049aae	0.485900	discard	focal loss gamma=2.0
+6e7e0a9	0.484400	discard	weight_decay 0.01 -> 0.02
+990a87f	0.475700	discard	input Gaussian noise sigma=0.1
+c13c18f	0.472400	discard	GRU bias True -> False (underfitting)
+89a511b	0.475100	discard	lr 0.001 -> 0.002
+a6828a8	0.478300	discard	torch manual_seed 42 -> 123
+bc643e1	0.478300	discard	1D conv before GRU (k=3)
+dd34f6a	0.472400	discard	decode window 40-240ms (worse than 50-250ms)
+e1ab041	0.487100	discard	avg_time 10 -> 5
+8e5a6cd	0.484100	discard	weighted time-step loss (linear ramp)
+e448eda	0.467900	discard	add ReLU in input projection (underfitting)
+bdf587f	0.467000	discard	arrays 1-16 -> 9-16
+d52c179	0.195900	discard	replace GRU with 2-layer 1D CNN
+28ad9fa	0.460300	discard	AdamW -> RAdam
+5f317b0	0.460300	discard	GRU -> LSTM (with full best config)
+9dc2c4f	0.313680	discard	rois [2,3] -> [2] (V4 only)
+decfaaf	0.452900	discard	hidden_size 64 -> 72
+a25d9bb	0.485140	discard	bidirectional GRU hidden_size=32
+5bb7787	0.482100	discard	patience 500 -> 600
+cb8b6f6	0.471100	discard	weight normalization on linear layers
+06574aa	0.471100	discard	replace GRU with 1-layer Transformer (2 heads)
+b8e9b6b	0.483794	discard	exclude session 0
+4fc293f	0.485400	discard	batch_size 64 -> 80
+9c2ebc8	0.485400	discard	orthogonal init for GRU recurrent weights
+94f50d1	0.489500	discard	neural_data mua -> lfp (full best config)
+b75d783	0.489500	discard	cosine annealing LR scheduler
+dd34f6a	0.444300	discard	decode-time-last 250 -> 260
+dd34f6a	0.444300	discard	avg_time 10 -> 20, step 20
+3d458e1	0.489400	discard	weight_decay 0.01 -> 0.008
+889ae7f	0.456400	discard	decode window 50-150ms (worse than 50-250ms)
+426ca38	0.488400	discard	temporal mean pooling before classifier
