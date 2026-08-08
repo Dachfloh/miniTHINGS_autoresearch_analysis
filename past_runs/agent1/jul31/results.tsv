@@ -1,0 +1,43 @@
+commit	val_acc	status	description
+3159c79	0.407870	keep	baseline (default config, GRU h=64 proj=32 dropout=0.3 lr=1e-3 wd=0.01 bs=32 patience=500)
+48a3bda	0.398620	discard	exp01 weight_decay 0.05
+16a3964	0.410169	keep	exp02 dropout 0.4
+87748e1	0.395145	discard	exp03 dropout 0.5
+b321f57	0.409934	discard	exp04 lr 0.002 (dropout 0.4)
+4383014	0.361387	discard	exp05 hidden_size 128 (dropout 0.4)
+70f14f6	0.413540	keep	exp06 hidden_size 32 (dropout 0.4)
+6c226cb	0.388169	discard	exp07 proj_dim 64 (dropout 0.4, hidden 32)
+5e1fe2a	0.389841	discard	exp08 weight_decay 0.005 (dropout 0.4, hidden 32)
+21198af	0.448840	keep	exp09 rois [2,3] V4+IT (dropout 0.4, hidden 32)
+46ff9a7	0.412443	discard	exp10 rois [1,2,3] V1+V4+IT (dropout 0.4, hidden 32)
+770eb60	0.440766	discard	exp11 rois[2,3] good_channel_threshold 1.0 (more channels)
+9831871	0.421222	discard	exp12 rois[2,3] good_channel_threshold 2.0 (fewer stronger)
+f6dd37b	0.452341	keep	exp13 rois[2,3] neural_data mua (V4+IT MUA)
+bf201af	0.466398	keep	exp14 bidirectional GRU (rois[2,3] mua, dropout 0.4, hidden 32)
+f9bb4e7	0.428904	discard	exp15 2-layer bidir GRU (rois[2,3] mua, dropout 0.4, hidden 32)
+14ada8c	0.455006	discard	exp16 bidir hidden 64 (rois[2,3] mua, dropout 0.4)
+1aaf145	0.469194	keep	exp17 label_smoothing 0.1 (bidir hidden 32, rois[2,3] mua)
+ca5bf0a	0.452707	discard	exp18 label_smoothing 0.2 (bidir hidden 32, rois[2,3] mua)
+86dce1f	0.451165	discard	exp19 decode window 50-350ms (bidir hidden 32, ls 0.1, rois[2,3] mua)
+5203f4b	0.460023	discard	exp20 decode window 50-200ms (bidir hidden 32, ls 0.1, rois[2,3] mua)
+e03385f	0.497439	keep	exp21 dual-signal lfp+mua concat (bidir hidden 32, ls 0.1, rois[2,3])
+15d964e	0.509302	keep	exp22 proj_dim 64 with dual-signal (566ch)
+c8b167b	0.500209	discard	exp23 proj_dim 128 with dual-signal
+d86ce16	0.507368	discard	exp24 hidden 64 with dual-signal proj64
+7576c09	0.507029	discard	exp25 dropout 0.5 with dual-signal proj64
+bc2265d	0.512307	keep	exp26 cosine LR schedule (dual-signal proj64, lr 1e-3)
+4196931	0.509067	discard	exp27 lr 0.002 + cosine schedule
+98fb82f	0.496107	discard	exp28 input noise std 0.1 (training-time aug)
+fda1215	0.484558	discard	exp29 avg_time 5 (less temporal smoothing)
+d9a2f55	0.477372	discard	exp30 avg_time 20 (more temporal smoothing)
+ef074d6	0.519858	keep	exp31 weight_decay 0.05 (with cosine, dual-signal)
+c6d8a21	0.525894	keep	exp32 weight_decay 0.1 (with cosine, dual-signal)
+259e5e0	0.500888	discard	exp33 weight_decay 0.2 (with cosine, dual-signal)
+ffe1ddb	0.488123	discard	exp34 batch_size 64 (wd 0.1, cosine, dual-signal)
+4a5a15d	0.540093	keep	exp35 batch_size 16 (wd 0.1, cosine, dual-signal)
+55949a8	0.492322	discard	exp36 batch_size 8 (wd 0.1, cosine, dual-signal)
+8cbc5ae	0.498798	discard	exp37 gct 1.0 with dual-signal (retest, bigger model)
+b19c263	0.510302	discard	exp38 lr 0.0005 with bs16 (cosine, wd0.1, dual-signal)
+d7ce472	0.523438	discard	exp39 cosine T_max 1000 (matched to bs16 early-stop)
+5fe98fc	0.493990	discard	exp40 no cosine (constant lr 0.001) at bs16
+f9015ab	0.540093	discard	exp41 patience 1000 (more epochs, more lottery tickets)

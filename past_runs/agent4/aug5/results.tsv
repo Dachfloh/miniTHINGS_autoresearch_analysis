@@ -1,0 +1,77 @@
+commit	val_acc	status	description
+3159c79	0.407870	keep	baseline (default config; GRU hs=64, proj=32, lr=1e-3, wd=0.01, bs=32, patience=500, lfp, IT only, dprime thresh 1.5)
+90824b7	0.385295	discard	dropout 0.5 + weight_decay 0.05 (over-regularized, underfit)
+4c3b6aa	0.390808	discard	proj_dim 64 (wider input projection)
+bdaa073	0.367031	discard	hidden_size 128 (more capacity, overfit more)
+b326b0f	0.403062	discard	all-timestep loss + decoupled last-timestep metric (close to baseline)
+d52a02d	0.428642	keep	rois V4+IT [2,3] (390 channels; +0.021 over baseline)
+4395dca	0.380383	discard	rois V1+V4+IT [1,2,3] (678 channels; V1 adds noise/overfit, worse)
+412de62	0.456156	keep	V4+IT base + weight_decay 0.05 (+0.028 over exp5; better generalization)
+fa40d7b	0.439120	discard	V4+IT + weight_decay 0.1 (over-regularized max-acc; val loss lower but acc worse)
+d4401b1	0.449676	discard	V4+IT + dropout 0.4 (close but worse than dropout 0.3)
+99d64e3	0.400867	discard	V4+IT + num_layers 2 (deeper, overfits more without inter-layer dropout)
+bf436eb	0.440061	discard	V4+IT + cosine LR schedule (decaying lr reduces late exploration, worse)
+c4a5703	0.434652	discard	V4+IT + label_smoothing 0.1 (worse)
+eacd9d0	0.464099	keep	V4+IT + neural_data mua (+0.008 over exp7; sharper signal, 176 ch)
+a9bfb63	0.496081	keep	MUA base + disable channel selection (512 ch; +0.032 over exp13)
+0a7d839	0.473375	discard	MUA-no-sel + proj_dim 64 (overfits more, worse)
+59de3e2	0.486936	discard	MUA-no-sel + weight_decay 0.1 (close, better gen but worse max-acc)
+03d2b39	0.490829	discard	MUA-no-sel + decode window 50-400ms (35 steps; 400ms endpoint past IT peak, worse)
+780966e	0.499563	keep	MUA-no-sel + batch_size 64 (+0.0035 over exp14; smoother grads)
+d568c39	0.264871	discard	MUA-no-sel + temporal_diff (delta-x loses info, much worse)
+cde7b27	0.481103	discard	MUA-no-sel + batch_size 128 (fewer updates, underfits; worse than bs 64)
+e4e0cbc	0.485937	discard	MUA-no-sel + input noise 0.2 aug (close but worse)
+e1b1cda	0.506873	keep	MUA-no-sel + fuse LFP (1024 ch; +0.007 over exp18)
+8bdf19f	0.511058	keep	MUA+LFP fusion + proj_dim 64 (beats exp22)
+9d0926c	0.505267	discard	fusion + proj_dim 128 (worse than proj 64)
+76069ec	0.490833	discard	fusion + proj64 + hidden_size 128
+281ce2e	0.500044	discard	fusion+proj64 + num_layers 2 + inter-dropout 0.3
+9b486ec	0.508785	discard	fusion+proj64 + lr 5e-4
+967d702	0.000000	crash	fusion+proj64 + n_epochs 2500 patience 800 (timed out >45min; best 0.5225 at ep1760 but no pickle saved)
+a6fc29a	0.522476	keep	fusion+proj64 + n_epochs 1800 patience 800 (beats exp23; more training)
+83d3cbf	0.502360	discard	fusion+proj64 + decode 50-200ms (15 steps; 200ms endpoint worse)
+bcda19d	0.508861	discard	fusion+proj64 + lr 1.5e-3 (higher lr worse)
+b9a21d8	0.503748	discard	fusion+proj64 + LSTM (overfits more, worse than GRU)
+27377c6	0.527885	keep	fusion+proj64 + dropout 0.2 (beats exp29; less dropout)
+dc9d53d	0.523077	discard	fusion+proj64 + dropout 0.1 (worse than 0.2)
+49abd52	0.529698	keep	fusion+proj64+dropout0.2 + weight_decay 0.03 (beats exp33)
+21f02f7	0.523590	discard	fusion+proj64+dropout0.2+wd0.03 + hidden_size 96 (overfits, worse)
+fffa905	0.507780	discard	fusion + proj_dim 96 (worse than 64; overfits)
+3a322e0	0.528497	discard	fusion + EMA weight avg decay 0.99 (smoother but lower max-acc)
+45c90da	0.527200	discard	fusion + batch_size 32 n_epochs1500 (close but worse)
+745fe3e	0.519679	discard	fusion + grad_clip 1.0 (worse; clipping hurts dynamics)
+51df411	0.525601	discard	fusion + lr 8e-4 (close but worse)
+c95f432	0.511757	discard	fusion + num_layers 2 + inter-dropout 0.2
+bb9dbe9	0.514871	discard	fusion + hidden_size 80
+e28f87c	0.517275	discard	fusion + dropout 0.25
+e6d057a	0.528693	discard	fusion + weight_decay 0.04
+ba9262c	0.511768	discard	fusion + proj_dim 48
+e2e3e1f	0.520280	discard	fusion + lr 1.2e-3
+8f12115	0.499945	discard	fusion + hidden_size 56
+a9f7f43	0.520487	discard	fusion + dropout 0.15
+70209ef	0.518783	discard	fusion + weight_decay 0.02
+46c3f39	0.519565	discard	fusion + batch_size 48
+2925df1	0.517974	discard	fusion + lr 9e-4
+55c368d	0.509889	discard	fusion + bias=False
+43a8dfd	0.502054	discard	fusion + decode 60-250ms
+cd742d4	0.514073	discard	fusion + proj_dim 80
+79668ad	0.532605	keep	fusion + hidden_size 72 (beats exp35)
+2bf8d4a	0.532616	keep	fusion + hidden_size 68 (beats exp56)
+78f3af0	0.525393	discard	fusion + hidden_size 76
+755327e	0.527404	discard	fusion + wd 0.025
+c4b734e	0.525109	discard	fusion + dropout 0.18
+d8c2f33	0.526989	discard	fusion + lr 1.05e-3
+3b0dfb6	0.530693	discard	fusion + proj_dim 56
+59aa707	0.533276	keep	fusion + batch_size 56 (beats exp57)
+f1d2f07	0.545882	keep	fusion + batch_size 50 (beats exp63)
+0b290f5	0.544214	discard	fusion + batch_size 44
+dd0e0cb	0.523074	discard	fusion + batch_size 52
+c5867a6	0.543529	discard	fusion bs50 + wd 0.035
+d21cc52	0.532353	discard	fusion bs50 + dropout 0.22
+5fd0a54	0.518331	discard	fusion bs46
+63e3ee0	0.523529	discard	fusion bs50 + hidden_size 70
+44fba27	0.540000	discard	fusion bs50 + lr 9.5e-4
+bf06bc4	0.524118	discard	fusion bs50 + dropout 0.18
+0ed714d	0.520588	discard	fusion bs50 + wd 0.025
+d8ff0ee	0.547647	keep	fusion bs50 + lr 1.05e-3 (beats exp64)
+d9e4179	0.537647	discard	fusion bs50 + lr 1.1e-3

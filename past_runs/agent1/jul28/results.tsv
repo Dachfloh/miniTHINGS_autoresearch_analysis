@@ -1,0 +1,54 @@
+commit	val_acc	status	description
+3159c79	0.407870	keep	baseline (default config: monkeyF IT lfp, proj_dim 32 hidden 64 lr 1e-3 wd 0.01 bs 32 patience 500)
+34e5516	0.390808	discard	proj_dim 32->64
+3200cfe	0.367031	discard	hidden_size 64->128
+0e2749e	0.395145	discard	dropout 0.3->0.5
+13f3086	0.423991	keep	lr 1e-3->3e-4
+45a590e	0.393473	discard	lr 3e-4->1e-4
+647c9c4	0.410195	discard	weight_decay 0.01->0.001
+975aac1	0.407530	discard	weight_decay 0.01->0.05
+4b8d694	0.415221	discard	batch_size 32->64
+40a8f80	0.413204	discard	batch_size 32->16
+4ba21f0	0.303440	discard	loss at all timesteps (False)
+75b70b5	0.394544	discard	2-layer GRU dropout 0.3
+f5afc09	0.436951	keep	rois IT->V4+IT [2,3] (390 ch)
+838fca4	0.406067	discard	rois V1+V4+IT [1,2,3] (678 ch)
+385853d	0.429505	discard	good_channel_threshold 1.5->1.0 (451 ch)
+eaffbc1	0.426474	discard	good_channel_threshold 1.5->2.0 (264 ch)
+87f62b3	0.440923	keep	neural_data lfp->mua (176 ch)
+d76a317	0.465928	keep	mua threshold 1.5->1.0 (270 ch)
+b29ac06	0.482624	keep	mua threshold 1.0->0.5 (464 ch)
+5f40102	0.466294	discard	mua no channel selection (512 ch)
+d6fb489	0.483147	keep	proj_dim 32->64 (mua 464ch base)
+6e056ff	0.457880	discard	proj_dim 64->128
+f693d77	0.488294	keep	decode window 50-250->50-400ms (35 steps)
+f693d77	0.479750	discard	decode window 50-500ms (40 steps)
+f693d77	0.464256	discard	decode window start 100ms
+f693d77	0.449963	discard	decode step 10->5ms (70 steps)
+5a6ee6a	0.518682	keep	lr 3e-4->5e-4 (mua base)
+66c9061	0.481187	discard	lr 5e-4->7e-4
+f59307c	0.491064	discard	lr 5e-4->4e-4
+e293651	0.502247	discard	weight_decay 0.01->0.05 (mua base)
+784f4b4	0.480612	discard	dropout 0.3->0.1 (mua base)
+e849c6b	0.499582	discard	dropout 0.3->0.5 (mua base)
+ecb707c	0.488033	discard	hidden_size 64->128 (mua base)
+cd79768	0.503815	discard	combine lfp+mua channels (975 ch)
+bf39ea3	0.491796	discard	bidirectional GRU
+b42e556	0.473871	discard	label smoothing 0.1
+bafb703	0.485890	discard	avg_time 10->20
+dabc022	0.479175	discard	avg_time 10->5
+766e8fb	0.360655	discard	baseline correction on
+5a6ee6a	0.000000	crash	trial_averaged True (y/X length mismatch in CV split)
+4bbbb37	0.237432	discard	temporal-diff path (standardize off)
+d427236	0.554683	keep	5-model seed ensemble (avg last-step logits)
+d427236	0.573414	keep	10-model seed ensemble
+d427236	0.567372	discard	20-model seed ensemble
+c6af073	0.578248	keep	cosine LR schedule + 10-model ensemble
+c0ec10d	0.560121	discard	lr 5e-4->7e-4 (cosine+ens10)
+d268134	0.555891	discard	proj_dim 64->32 (cosine+ens10)
+1d3be16	0.566163	discard	proj_dim 64->96 (cosine+ens10)
+55f7a5f	0.568580	discard	weight_decay 0.01->0.05 (cosine+ens10)
+ba559d4	0.566767	discard	weight_decay 0.01->0.005 (cosine+ens10)
+e4133ae	0.561329	discard	dropout 0.3->0.2 (cosine+ens10)
+b952086	0.605438	keep	mixup alpha 0.2 + cosine + 10-model ensemble
+caad4d0	0.633837	keep	mixup alpha 0.2->0.4 + cosine + 10-ensemble
