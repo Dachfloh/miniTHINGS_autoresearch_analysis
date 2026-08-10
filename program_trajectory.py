@@ -1,10 +1,12 @@
 import argparse
+import ast
 import os
 import subprocess
 
 import matplotlib.pyplot as plt
 import numpy as np
 import ollama
+import yaml
 from sklearn.manifold import TSNE
 
 
@@ -22,17 +24,89 @@ REPO_COLORS = [
 ]
 
 
+def _strip_docstrings(tree : ast.AST) -> None:
+  """
+  Remove docstrings in place: the first statement of any module/function/class
+  body that is a bare string-literal expression. A `pass` is left behind where
+  stripping would empty a non-module body, so the tree stays unparsable-free.
+  """
+  for node in ast.walk(tree):
+    body = getattr(node, 'body', None)
+    if not isinstance(body, list) or not body:
+      continue
+    first = body[0]
+    if (isinstance(first, ast.Expr)
+            and isinstance(first.value, ast.Constant)
+            and isinstance(first.value.value, str)):
+      body.pop(0)
+      if not body and not isinstance(node, ast.Module):
+        body.append(ast.Pass())
+
+
+def normalize_python(source : str) -> str:
+  """
+  Standardize Python source for embedding: parse to AST (which drops all
+  comments), strip docstrings, then unparse to canonical auto-formatted text.
+  Returns the normalized source. The result is not meant to be executed, only
+  embedded, so cosmetic differences from the original (e.g. trailing spaces) are
+  fine.
+  """
+  tree = ast.parse(source)
+  _strip_docstrings(tree)
+  ast.fix_missing_locations(tree)
+  return ast.unparse(tree)
+
+
+def normalize_yaml(source : str) -> str:
+  """
+  Standardize YAML source for embedding: round-trip through PyYAML, which drops
+  comments and normalizes indentation, quoting, and key order (keys sorted).
+  """
+  data = yaml.safe_load(source)
+  if data is None:  # empty / comment-only file
+    return ''
+  return yaml.safe_dump(
+    data, sort_keys=True, default_flow_style=False, allow_unicode=True
+  )
+
+
+def normalize_source(source : str, path : str) -> str:
+  """
+  Standardize a single program file's text by extension. Python files are
+  comment/docstring-stripped and auto-formatted via the AST; YAML files are
+  round-tripped through PyYAML. Anything else is returned unchanged. If a file
+  cannot be normalized (e.g. syntactically broken code at a mid-edit commit),
+  the original text is returned so embedding still proceeds.
+  """
+  ext = os.path.splitext(path)[1].lower()
+  try:
+    if ext == '.py':
+      return normalize_python(source)
+    if ext in ('.yaml', '.yml'):
+      return normalize_yaml(source)
+  except Exception as exc:
+    print(f'  warning: could not normalize {path}: {exc}; using raw text')
+  return source
+
+
 def embed_program(repo_path : str,
                   model : str = 'qwen3-embedding:8b',
                   paths : list[str] = [
                         'allMUA_decoding_rnn.py',
                         'config/rnn_decoder_config.yaml',
                         'packages/ephyslib/ephyslib/decoding/rnn.py'
-                        ]):
+                        ],
+                  normalize : bool = True):
   """
   Read the program files at `paths` (relative to `repo_path`, the directory
   containing the repo's .git), concatenate them, and embed the result with the
   given ollama embedding model. Returns the embedding vector.
+
+  When `normalize` is True (default), each file is standardized before
+  concatenation: Python files have comments and docstrings stripped and are
+  auto-formatted via the AST, and YAML files are round-tripped through PyYAML.
+  This makes the embedding reflect the code's structure rather than
+  comment/whitespace churn, so the trajectory plot tracks real changes.
   """
 
   # Read program
@@ -42,6 +116,9 @@ def embed_program(repo_path : str,
   for path in paths:
     with open(os.path.join(repo_path, path), 'r', encoding='utf-8') as file:
       content_allmua = file.read()
+
+    if normalize:
+      content_allmua = normalize_source(content_allmua, path)
 
     program += '-----   ' + path + '   -----' + '\n\n' + content_allmua + '\n\n\n'
 
@@ -87,7 +164,8 @@ def collect_kept_commits(results_path : str = 'results.tsv') -> list[str]:
 def embed_trajectory(repo_path : str,
                      results_path : str = 'results.tsv',
                      model : str = 'qwen3-embedding:8b',
-                     paths : list[str] | None = None) -> list[list[float]]:
+                     paths : list[str] | None = None,
+                     normalize : bool = True) -> list[list[float]]:
   """
   Check out each kept commit one by one, embed the program at that commit with
   embed_program, and return the embeddings in chronological order.
@@ -119,9 +197,9 @@ def embed_trajectory(repo_path : str,
       print(f'[{i + 1}/{len(commits)}] git -C {repo_path} checkout {commit}')
       subprocess.run(['git', '-C', repo_path, 'checkout', commit], check=True)
       if paths is None:
-        embeddings.append(embed_program(repo_path, model=model))
+        embeddings.append(embed_program(repo_path, model=model, normalize=normalize))
       else:
-        embeddings.append(embed_program(repo_path, model=model, paths=paths))
+        embeddings.append(embed_program(repo_path, model=model, paths=paths, normalize=normalize))
   finally:
     subprocess.run(['git', '-C', repo_path, 'checkout', original], check=True)
 
@@ -132,7 +210,8 @@ def embed_trajectory(repo_path : str,
 def embed_trajectories(repo_paths : list[str],
                        results_path : str = 'results.tsv',
                        model : str = 'qwen3-embedding:8b',
-                       paths : list[str] | None = None) -> list[dict]:
+                       paths : list[str] | None = None,
+                       normalize : bool = True) -> list[dict]:
   """
   Embed the program trajectory for each repo in `repo_paths` by calling
   embed_trajectory on each. Returns a list of dicts, one per repo and in the
@@ -149,7 +228,8 @@ def embed_trajectories(repo_paths : list[str],
     label = os.path.basename(os.path.normpath(repo_path))
     print(f'\n=== embedding trajectory: {label} ({repo_path}) ===')
     embeddings = embed_trajectory(
-      repo_path, results_path=results_path, model=model, paths=paths
+      repo_path, results_path=results_path, model=model, paths=paths,
+      normalize=normalize,
     )
     trajectories.append({'repo': label, 'embeddings': embeddings})
   return trajectories
@@ -290,6 +370,9 @@ if __name__ == "__main__":
                            '(default: the standard miniTHINGS set)')
   parser.add_argument('--perplexity', type=float, default=None,
                       help='t-SNE perplexity (default: min(30, n/3))')
+  parser.add_argument('--no-normalize', dest='normalize', action='store_false',
+                      help='do not strip comments/docstrings or auto-format the '
+                           'embedded files before embedding (default: normalize)')
   parser.add_argument('--out', default=None,
                       help='optional output image path (e.g. trajectories.png)')
   args = parser.parse_args()
@@ -299,7 +382,8 @@ if __name__ == "__main__":
     raise SystemExit(f'no repo paths found in {args.repos_file!r}')
 
   trajectories = embed_trajectories(
-    repo_paths, results_path=args.results, model=args.model, paths=args.paths
+    repo_paths, results_path=args.results, model=args.model, paths=args.paths,
+    normalize=args.normalize,
   )
   if not trajectories:
     print('no trajectories to plot; nothing to do.')
