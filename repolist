@@ -1,4 +1,12 @@
-/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent1
-/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent2
-/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent3
-/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent4
+# TSV repolist. Required columns: repo (path to the agent clone), branch
+# (autoresearch branch to check out). Optional recognized columns: results
+# (path to that run's results.tsv, relative to the repo or absolute; falls back
+# to --results when absent). Other columns are free-form metadata stored
+# verbatim on each trajectory in the output bundle.
+
+
+repo	branch	results	model
+/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent1	autoresearch/agent1/aug3	/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent1/aug3/results.tsv	glm-5.2
+/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent2	autoresearch/agent2/aug3	/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent2/aug3/results.tsv	glm-5.2
+/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent3	autoresearch/agent3/aug5	/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent3/aug5/results.tsv	glm-5.2
+/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent4	autoresearch/agent4/aug5	/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent4/aug5/results.tsv	glm-5.2
