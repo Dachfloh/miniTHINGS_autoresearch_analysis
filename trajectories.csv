@@ -1,0 +1,9 @@
+# meta {"embedding_model": "qwen3-embedding:8b", "results": "results.tsv", "paths": null, "normalize": true}
+id,repo,branch,results,model,n_commits
+0,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch,autoresearch/agent1/aug3,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent1/aug3/results.tsv,glm-5.2,19
+1,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch,autoresearch/agent2/aug3,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent2/aug3/results.tsv,glm-5.2,13
+2,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch,autoresearch/agent3/aug5,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent3/aug5/results.tsv,glm-5.2,11
+3,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch,autoresearch/agent4/aug5,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent4/aug5/results.tsv,glm-5.2,16
+4,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch,autoresearch/agent1/aug19,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent1/aug19/results.tsv,kimi-k2.6,8
+5,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch,autoresearch/agent2/aug19,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent2/aug19/results.tsv,kimi-k2.6,14
+6,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch,autoresearch/agent4/aug20,/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/past_runs/agent4/aug20/results.tsv,kimi-k2.6,9
