@@ -1,0 +1,77 @@
+commit	val_acc	status	description
+3159c79	0.403663	keep	baseline (default config)
+849d57e	0.404160	keep	lr 0.003
+d987445	0.366273	discard	weight_decay 0.05
+c624d25	0.350570	discard	hidden_size 128
+3008577	0.384976	discard	batch_size 64
+729d2a5	0.404525	keep	lr 0.002
+3795d7a	0.384824	discard	dropout_p 0.2
+beac740	0.411868	keep	dropout_p 0.4
+3554a78	0.406929	discard	weight_decay 0.005
+2548861	0.407295	discard	proj_dim 64
+58e7bf4	0.377717	discard	proj_dim 16
+80a9ed6	0.303674	discard	loss_at_all_timesteps
+b5418d0	0.000000	crash	allMUA data not available in h5
+ab7de02	0.380827	discard	num_layers 2, rnn dropout 0.2
+ebe988b	0.411868	discard	patience 750
+10f56b4	0.361857	discard	MLP classifier head
+6508542	0.399953	discard	bidirectional GRU
+a7a5c96	0.386366	discard	hidden_size 96
+4858f3e	0.405571	discard	hidden_size 48
+ca1cc1c	0.334553	discard	temporal_diff
+beac740	0.277514	discard	shuffle_time augmentation
+f6d96df	0.396112	discard	label smoothing 0.1
+8de3b2a	0.412077	keep	all ROIs V1+V4+IT
+a7cbcaf	0.403663	discard	disable channel selection
+b706b7e	0.449180	keep	ROIs V4+IT
+087f5d0	0.450982	keep	V4+IT + hidden_size 96
+9eaf002	0.433816	discard	V4+IT + proj_dim 64
+54a234f	0.424828	discard	V4+IT + dropout_p 0.5
+087f5d0	0.438362	discard	V4+IT + decode from 0ms
+8c1f923	0.437186	discard	V4+IT + lr 0.0015
+fcbfb6c	0.440766	discard	V4+IT + hidden_size 96 + weight_decay 0.005
+e702439	0.432588	discard	V4+IT + hidden_size 96 + lr 0.0025
+3f5ac38	0.423129	discard	V4+IT + hidden_size 96 + proj_dim 48
+59cf2f5	0.429087	discard	V4+IT + hidden_size 96 + batch_size 16
+52fc2bb	0.417093	discard	V4+IT + hidden_size 112
+67b4e77	0.460833	keep	V4+IT + hidden_size 80
+4f839be	0.438388	discard	V4+IT + hidden_size 72
+3ae635b	0.443431	discard	V4+IT + hidden_size 88
+8f5125b	0.436089	discard	V4+IT + hidden_size 76
+3c91ba3	0.416492	discard	V4+IT + hidden_size 80 + grad_clip 1.0
+abb206b	0.440792	discard	V4+IT + hidden_size 80 + lr 0.001
+f5f9d32	0.364392	discard	V1+IT + hidden_size 80
+d13a8b6	0.453386	discard	V4+IT + hidden_size 80 + ReduceLROnPlateau
+370efcb	0.000000	crash	attention pooling bmm compiler issue
+b4aaf71	0.432954	discard	V4+IT + hidden_size 80 + LSTM
+67b4e77	0.000000	crash	V4+IT + decode to 300ms - process died
+e811d8c	0.000000	crash	exp046: V4+IT + hidden_size 80 + proj_dim 24 - killed by system
+e811d8c	0.445103	discard	exp048: V4+IT + hidden_size 80 + proj_dim 24 (rerun)
+e811d8c	0.445103	discard	exp049: V4+IT + hidden_size 80 + proj_dim 24 (rerun)
+bc9ab27	0.430680	discard	exp050: V4+IT + hidden_size 80 + good_channel_threshold 1.0
+65e011f	0.000000	crash	exp051: V4+IT + hidden_size 80 + weight_decay 0.02 - killed by system
+3c968fa	0.000000	crash	exp052: V4+IT + hidden_size 80 + patience 1000 - killed by system
+2ffb86d	0.000000	crash	exp057: V4+IT + hidden_size 80 + lr 0.001 + patience 1000 - killed by system
+c30f040	0.000000	crash	exp053: V4+IT + hidden_size 80 + proj_dim 40 - killed by system
+0a87d0c	0.000000	crash	exp054: V4+IT + hidden_size 80 + decode from 100ms - killed by system
+b6b66c3	0.000000	crash	exp055: V4+IT + hidden_size 80 + decode to 200ms - killed by system
+113d45d	0.000000	crash	exp056: V4+IT + hidden_size 80 + batch_size 48 - killed by system
+18647fb	0.000000	crash	exp058: V4+IT + hidden_size 80 + dropout_p 0.35 - killed by system
+cb113eb	0.000000	crash	exp059: V4+IT + hidden_size 80 + dropout_p 0.5 + weight_decay 0.005 - killed by system
+d6949b5	0.000000	crash	exp060: V4+IT + hidden_size 84 - killed by system
+4c6e8e8	0.460833	discard	exp061: V4+IT + hidden_size 80 + patience 1000 (same as best)
+d66f912	0.419994	discard	exp062: V4+IT + hidden_size 80 + proj_dim 28
+219fbf6	0.437996	discard	exp063: V4+IT + hidden_size 80 + weight_decay 0.015
+402b58e	0.432718	discard	exp064: V4+IT + hidden_size 80 + lr 0.0025
+a5d7664	0.000000	crash	exp067: V4+IT + hidden_size 80 + lr 0.001 + weight_decay 0.005 - killed by system
+dee23ca	0.000000	crash	exp069: V4+IT + hidden_size 80 + n_epochs 3000 - killed by system
+dfaf8b7	0.000000	crash	exp070: V4+IT + hidden_size 80 + dropout_p 0.45 - killed by system
+9ef7ac3	0.000000	crash	exp071: V4+IT + hidden_size 92 - killed by system
+5297659	0.000000	crash	exp072: V4+IT + hidden_size 68 - killed by system
+f5bd54e	0.000000	crash	exp073: V4+IT + hidden_size 80 + proj_dim 48 - killed by system
+0919a64	0.000000	crash	exp074: V4+IT + hidden_size 80 + patience 750 - killed by system
+c315cc2	0.000000	crash	exp075: V4+IT + hidden_size 80 + lr 0.0015 + weight_decay 0.015 - killed by system
+bb9ecf9	0.460833	discard	exp069b: V4+IT + hidden_size 80 + n_epochs 3000 (same as best)
+01d55c3	0.452785	discard	exp076: V4+IT + hidden_size 80 + decode from 0ms
+b2ce655	0.437526	discard	exp077: V4+IT + hidden_size 80 + decode to 300ms
+f96d4ca	0.446436	discard	exp078: V4+IT + hidden_size 80 + lr 0.0015

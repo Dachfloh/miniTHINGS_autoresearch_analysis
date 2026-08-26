@@ -1,0 +1,56 @@
+commit	val_acc	status	description
+3159c79	0.403663	keep	baseline (default config)
+e8c043a	0.417093	keep	use mua instead of lfp
+7087a7c	0.376045	discard	lr 0.003
+5ffc32b	0.419262	keep	weight_decay 0.001
+f6047dc	0.361256	discard	hidden_size 128
+8051c53	0.384955	discard	dropout 0.1
+9058415	0.389371	discard	proj_dim 64
+9d6e372	0.400601	discard	batch_size 64
+0a8308c	0.422685	keep	rois 1,2,3 (V1,V4,IT)
+0458511	0.414298	discard	num_layers 2, dropout 0.2
+6baf987	0.437918	keep	disable channel selection (threshold -1)
+221c193	0.471206	keep	decode from time 0
+e8aeb89	0.220135	discard	temporal diff preprocessing
+f264d98	0.455503	discard	decode_time_last 350
+55d5b68	0.288516	discard	loss at all timesteps
+89fb5db	0.471206	keep	patience 200 (equal acc, faster)
+b25c473	0.458952	discard	dropout 0.2
+6d8126a	0.441994	discard	lr 0.0005
+3a34d54	0.445260	discard	decode_time_step 5ms (too slow)
+8b71d7b	0.407060	discard	switch GRU to LSTM
+8ba24ee	0.000000	crash	bidirectional GRU (classifier mismatch)
+036b1d4	0.434077	discard	avg_time 20
+f7a2bfc	0.474916	keep	weight_decay 0.0001
+1483f21	0.455947	discard	patience 150
+53f8daa	0.461251	discard	weight_decay 0.0005
+f87d4fa	0.474916	discard	n_epochs 3000 (no improvement)
+f7a2bfc	0.000000	crash	shuffle-time (no output, hung)
+6784d3e	0.398176	discard	proj_dim 16
+0c4e6c3	0.425899	discard	hidden_size 48
+917960c	0.429296	discard	decode_time_last 200
+9db47da	0.457750	discard	StepLR scheduler (step=100, gamma=0.5)
+55447e6	0.453909	discard	CosineAnnealingLR scheduler
+4ffc911	0.421953	discard	remove post-RNN LayerNorm
+12fd253	0.446227	discard	roi 3 only (IT) with best config
+47ec1c5	0.460422	discard	batch_size 16
+cedd910	0.459318	discard	good_channel_threshold 1.0
+da522ce	0.451191	discard	good_channel_threshold 0.5
+7dfa557	0.396373	discard	add FFN classifier (128 hidden)
+bc28869	0.427467	discard	avg_time 5
+7f8cc0b	0.474916	discard	patience 300 (tied, slower)
+92daee2	0.429923	discard	proj_dim 24
+ab6b504	0.444320	discard	remove input proj LayerNorm
+d6bf439	0.450329	discard	lr 0.002
+681b7fb	0.000000	crash	trial_averaged=True (group size mismatch)
+cfea526	0.427702	discard	label smoothing 0.1
+e3059be	0.450800	discard	dropout 0.4
+e5b258d	0.445966	discard	residual connection around GRU
+0d26e29	0.449101	discard	lr 0.0015
+3d31f01	0.453334	discard	hidden_size 80
+618af0e	0.466398	discard	decode_time_first 25
+c921975	0.435101	discard	sessions 0,1,2 only
+b4ab4c9	0.377378	discard	disable standardize_data
+8ee3301	0.446697	discard	lr 0.0008
+996929d	0.458612	discard	weight_decay 0.00005
+c404b3d	0.463864	discard	weight_decay 0.0002
