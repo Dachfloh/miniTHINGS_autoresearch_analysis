@@ -1,6 +1,6 @@
 commit	val_acc	status	description
 3159c79	0.403663	keep	baseline (default config)
-660592e	0.404160	keep	lr=0.003 (small improvement over baseline)
+660592e	0.404160	flasekeep	lr=0.003 (small improvement over baseline)
 660592e	0.378789	discard	weight_decay=0.001 (worse than baseline)
 685b461	0.000000	crash	hidden_size=128 (timeout, too slow)
 85a4e84	0.404160	keep	lr=0.003 (improved over baseline)
