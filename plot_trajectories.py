@@ -28,6 +28,10 @@ PALETTE = [
 ACC_CMAP = 'viridis'
 COLORS = ('run', 'model', 'accuracy')
 
+# Fixed color for every trajectory's baseline (start) star, regardless of the
+# active color mode, so the start point reads consistently across the figure.
+BASELINE_STAR_COLOR = '#ffd60a'
+
 
 def run_label(repo : str, branch : str) -> str:
   """
@@ -44,6 +48,33 @@ def run_label(repo : str, branch : str) -> str:
   return os.path.basename(os.path.normpath(repo))
 
 
+def load_catalog(stem : str) -> tuple[list[dict], dict]:
+  """
+  Load only the `<stem>.csv` catalog (no embeddings). Returns (trajectories,
+  provenance). Each trajectory dict carries the catalog columns plus a derived
+  `run_label`, but no `embeddings`/`accuracies` — used by `--list`, which only
+  needs the text columns.
+  """
+  csv_path = stem + '.csv'
+
+  provenance = {}
+  with open(csv_path, 'r', encoding='utf-8') as file:
+    first = file.readline()
+    if first.startswith('# meta '):
+      provenance = json.loads(first[len('# meta '):])
+
+  catalog = pd.read_csv(csv_path, comment='#', keep_default_na=False)
+
+  trajectories = []
+  for _, row in catalog.iterrows():
+    tid = int(row['id'])
+    t = row.to_dict()
+    t['id'] = tid
+    t['run_label'] = run_label(t['repo'], t.get('branch', ''))
+    trajectories.append(t)
+  return trajectories, provenance
+
+
 def load_bundle(stem : str) -> tuple[list[dict], dict]:
   """
   Load the `<stem>.csv` catalog + `<stem>.npz` embeddings written by
@@ -54,27 +85,12 @@ def load_bundle(stem : str) -> tuple[list[dict], dict]:
   derived `run_label`. `provenance` is the run-level metadata from the catalog's
   `# meta` comment line (embedding model, paths, ...).
   """
-  csv_path = stem + '.csv'
-  npz_path = stem + '.npz'
-
-  provenance = {}
-  with open(csv_path, 'r', encoding='utf-8') as file:
-    first = file.readline()
-    if first.startswith('# meta '):
-      provenance = json.loads(first[len('# meta '):])
-
-  catalog = pd.read_csv(csv_path, comment='#', keep_default_na=False)
-  npz = np.load(npz_path)
-
-  trajectories = []
-  for _, row in catalog.iterrows():
-    tid = int(row['id'])
-    t = row.to_dict()
-    t['id'] = tid
+  trajectories, provenance = load_catalog(stem)
+  npz = np.load(stem + '.npz')
+  for t in trajectories:
+    tid = t['id']
     t['embeddings'] = npz[f'traj_{tid}']
     t['accuracies'] = npz[f'traj_{tid}_acc']
-    t['run_label'] = run_label(t['repo'], t.get('branch', ''))
-    trajectories.append(t)
   return trajectories, provenance
 
 
@@ -143,8 +159,8 @@ def draw_trajectory(ax, t : dict, color : str,
     if n > 2:
       ax.scatter(xy[1:-1, 0], xy[1:-1, 1], s=40, c=rgba[1:-1],
                  alpha=0.9, edgecolors='white', linewidths=0.5, zorder=3)
-    ax.scatter(xy[0, 0], xy[0, 1], s=160, color=rgba[0], marker='*',
-               edgecolors='black', linewidths=0.6, zorder=4)
+    ax.scatter(xy[0, 0], xy[0, 1], s=160, color=BASELINE_STAR_COLOR,
+               marker='*', edgecolors='black', linewidths=0.6, zorder=4)
     if n > 1:
       ax.scatter(xy[-1, 0], xy[-1, 1], s=110, color=rgba[-1], marker='o',
                  edgecolors='black', linewidths=1.5, zorder=4)
@@ -167,7 +183,7 @@ def draw_trajectory(ax, t : dict, color : str,
   if n > 2:
     ax.scatter(xy[1:-1, 0], xy[1:-1, 1], s=40, color=cc, alpha=0.85,
                edgecolors='white', linewidths=0.5, zorder=3)
-  ax.scatter(xy[0, 0], xy[0, 1], s=140, color=cc, marker='*',
+  ax.scatter(xy[0, 0], xy[0, 1], s=140, color=BASELINE_STAR_COLOR, marker='*',
              edgecolors='black', linewidths=0.6, zorder=4)
   if n > 1:
     ax.scatter(xy[-1, 0], xy[-1, 1], s=120, color='white', marker='o',
@@ -273,6 +289,13 @@ if __name__ == "__main__":
   parser.add_argument('--filter-run', default=None, metavar='LABEL',
                       help='only include the trajectory whose run_label '
                            '(agent:date, e.g. agent1:aug3) equals LABEL')
+  parser.add_argument('--exclude', nargs='+', type=int, default=None,
+                      metavar='IDX',
+                      help='exclude trajectories by their 0-based index in the '
+                           'catalog (see --list). E.g. --exclude 0 3 7')
+  parser.add_argument('--list', action='store_true',
+                      help='print each trajectory index with its run_label and '
+                           'model, then exit (use to find indices for --exclude)')
   parser.add_argument('--perplexity', type=float, default=None,
                       help='t-SNE perplexity (default: min(30, n/3))')
   parser.add_argument('--out', default=None,
@@ -289,11 +312,33 @@ if __name__ == "__main__":
       args.color = 'model'
 
   stem = os.path.splitext(args.bundle)[0]
+
+  if args.list:
+    # Only needs the CSV columns; skip the .npz load entirely.
+    trajectories, _ = load_catalog(stem)
+    for i, t in enumerate(trajectories):
+      print(f'{i:3d}  {t.get("model", "") or "(no model)":20s}  '
+            f'{t["run_label"]}')
+    sys.exit(0)
+
   trajectories, _provenance = load_bundle(stem)
 
   if not trajectories:
     print('no trajectories to plot; nothing to do.')
     sys.exit(0)
+
+  if args.exclude:
+    excluded = set(args.exclude)
+    n = len(trajectories)
+    bad = sorted(i for i in excluded if not 0 <= i < n)
+    if bad:
+      raise SystemExit(f'--exclude index out of range (0..{n - 1}): {bad}')
+    trajectories = [t for i, t in enumerate(trajectories) if i not in excluded]
+    print(f'excluded {len(excluded)} trajectory/ies by index '
+          f'({sorted(excluded)}); {len(trajectories)} remaining.')
+    if not trajectories:
+      print('nothing left to plot; nothing to do.')
+      sys.exit(0)
 
   fig = build_single_figure(
     trajectories, args.color, args.perplexity,

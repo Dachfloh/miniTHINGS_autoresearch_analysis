@@ -104,6 +104,20 @@ Other useful flags:
 
 - `--perplexity <n>` — t-SNE perplexity (default `min(30, n_points/3)`).
 - `--bundle <stem>` — load a bundle other than `trajectories`.
+- `--list` — print each trajectory's index, model, and run_label, then exit.
+  Use it to look up which indices to pass to `--exclude`.
+- `--exclude <idx> [<idx> ...]` — drop trajectories by their 0-based index in
+  the catalog (see `--list`). Exclusion applies right after loading, before any
+  `--filter-model` / `--filter-run`, so indices always refer to the full catalog.
+  Example: `--exclude 4 12`.
+
+```bash
+# Find the index of a trajectory you want to drop
+python plot_trajectories.py trajectories --list
+
+# Plot everything except trajectories 4 and 12
+python plot_trajectories.py trajectories --exclude 4 12 --out selected.png
+```
 
 ## Other scripts
 
