@@ -1,0 +1,77 @@
+commit	val_acc	status	description
+3159c79	0.403663	keep	baseline (default config)
+874ef08	0.404160	keep	lr 0.003
+2f8785a	0.360760	discard	lr 0.01
+93ab69a	0.350570	discard	hidden_size 128
+d71a264	0.400188	discard	proj_dim 64
+6100103	0.376019	discard	dropout_p 0.15
+8e72c56	0.366273	discard	weight_decay 0.05
+9782fea	0.301990	discard	loss at all timesteps
+0842619	0.375340	discard	num_layers 2
+e87c0d2	0.384976	discard	batch_size 64
+a03517e	0.398008	discard	batch_size 16
+f5e97a0	0.413305	keep	decode window 50-350ms
+951a688	0.389972	discard	decode window 50-450ms
+6ff91c5	0.389371	discard	5ms time step
+88ed502	0.398098	discard	20ms time step
+736378f	0.402723	discard	all ROIs 1,2,3
+d435fbe	0.373850	discard	neural_data mua
+2c08eb9	0.370009	discard	temporal_diff + per-session z-score
+2c08eb9	0.291440	discard	shuffle_time augmentation
+82e0242	0.384929	discard	label smoothing 0.1
+b4dc936	0.391513	discard	cosine LR annealing
+97171b4	0.431177	keep	ReduceLROnPlateau factor 0.5 patience 150
+2f12107	0.431177	discard	n_epochs 3000
+c81d76c	0.426003	discard	scheduler patience 100
+a9de786	0.433946	keep	scheduler factor 0.3
+9b8f5f7	0.407478	discard	scheduler factor 0.2
+68559c6	0.407269	discard	proj_dim 64 with scheduler
+4c123cc	0.413879	discard	lr 0.002 with scheduler
+52e8334	0.429635	discard	lr 0.005 with scheduler
+3d56ba5	0.408001	discard	bidirectional GRU
+9e37696	0.414010	discard	attention pooling
+9ecd3af	0.428433	discard	avg_time 20
+8d83138	0.389737	discard	avg_time 5
+f549f7d	0.371107	discard	good_channel_threshold 2.0
+c9a6acf	0.428668	discard	good_channel_threshold 1.0
+7523368	0.402461	discard	LSTM instead of GRU
+b045655	0.443457	keep	mixup alpha 0.2
+cbf5e2d	0.453778	keep	mixup alpha 0.4
+0cc7291	0.484088	keep	mixup alpha 1.0
+99c22d5	0.473270	discard	mixup alpha 2.0
+5938900	0.467104	discard	dropout 0.2 with mixup
+f45dbd7	0.489235	keep	hidden_size 96 with mixup
+019d2e7	0.488974	discard	hidden_size 128 with mixup
+21f1f95	0.462923	discard	lr 0.002 with mixup
+0cf69d6	0.478548	discard	weight_decay 0.02
+7abe8c7	0.479985	discard	decode step 10ms with mixup recipe
+7aee93e	0.478757	discard	num_layers 2 with mixup
+61ada4d	0.459448	discard	decode window 70-350ms
+a3d5802	0.453909	discard	baseline correction
+390e737	0.459448	discard	patience 700 (contaminated by window 70)
+e9c0d08	0.489235	discard	patience 700 (equal result)
+c32568f	0.476144	discard	scheduler patience 250
+8df4235	0.468933	discard	proj_dim 48
+0ba5c3f	0.424697	discard	gaussian input noise 0.2
+2e3a4a9	0.491534	keep	weight_decay 0.005
+e7da277	0.478287	discard	weight_decay 0.002
+50b4099	0.460624	discard	mixup p 0.7
+f97a23a	0.477111	discard	dropout 0.4
+d4d2de6	0.472173	discard	two-layer classifier head
+aec8d95	0.474819	discard	batch_size 48
+52ebe3e	0.479855	discard	avg_time 15
+4f20746	0.451009	discard	hidden_size 112
+45dd013	0.482259	discard	mixup alpha 1.3
+0acdc0c	0.483957	discard	scheduler factor 0.5 with mixup
+3c4fee6	0.488399	discard	EMA weight averaging
+6acaa6b	0.463759	discard	lr 0.004
+a2ee9d7	0.473479	discard	decode window 50-330ms
+98ab905	0.453648	discard	gradient clipping
+79c4d5a	0.460434	discard	batch_size 24
+da3f1f5	0.410274	discard	proj_dim 16
+c69ef89	0.455581	discard	GRU bias off
+23eb53d	0.468071	discard	mixup alpha 0.8
+b249fdb	0.467496	discard	remove post-RNN LayerNorm
+630139d	0.473845	discard	weight_decay 0.007
+6ded264	0.433346	discard	remove pre-RNN dropout
+fa96ccb	0.464256	discard	dropout 0.35 (final)

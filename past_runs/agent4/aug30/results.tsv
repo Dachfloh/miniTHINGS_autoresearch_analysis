@@ -1,0 +1,81 @@
+commit	val_acc	status	description
+3159c79	0.403663	keep	baseline (default config)
+39c01c6	0.366273	discard	lr 0.003, weight_decay 0.05
+05a321c	0.372074	discard	proj_dim 64, hidden_size 128
+1f6afcd	0.417093	keep	mua signal instead of lfp
+48aaa1c	0.376045	discard	lr 0.003 on mua
+45ade73	0.440714	keep	good_channel_threshold 0.5 (275 ch, mua)
+cc33084	0.472068	keep	rois [2,3] V4+IT, threshold 0.5 (464 ch)
+75d7afd	0.436011	discard	rois [1,2,3] add V1
+a8c8eed	0.478209	keep	decode window 50-400ms
+bc658cf	0.487223	keep	decode window 50-500ms
+e8f7548	0.487223	discard	window 600ms - same bins as 500 (data ends)
+3b51dd3	0.493233	keep	weight_decay 0.05
+aa52877	0.490202	discard	dropout_p 0.5
+1ed1de6	0.470161	discard	num_layers 2
+afe5bd3	0.483217	discard	batch_size 64
+75bf063	0.486693	discard	batch_size 16
+edc97a2	0.476510	discard	label_smoothing 0.1
+0738d5c	0.504024	keep	cosine LR annealing
+47af9c0	0.498145	discard	proj_dim 64 with cosine
+42746f2	0.487929	discard	cosine T_max 300
+6917fbc	0.495140	discard	lr 0.002 with cosine
+c10b86b	0.491874	discard	EMA of weights (decay 0.999)
+399a042	0.462584	discard	hidden_size 128 with cosine+wd
+5cbb18a	0.484584	discard	channel threshold 0.75
+9b77356	0.482050	discard	avg_time 20ms bins
+138c115	0.478574	discard	per-session z-scoring
+c703afe	0.269518	discard	temporal-diff preprocessing
+976344e	0.504024	discard	patience 900 (equal, no gain)
+6d0a34d	0.488268	discard	gaussian input noise std 0.1
+68f19cd	0.506062	keep	decode window starts at 0ms
+bd5750f	0.489261	discard	concat lfp+mua channels
+d64d9f7	0.490829	discard	hidden_size 32
+1c7112f	0.454144	discard	proj_dim 16
+238a622	0.000000	crash	bidirectional GRU first attempt (classifier dim mismatch)
+933de0c	0.499112	discard	bidirectional GRU hidden 64
+6b97399	0.392402	discard	baseline correction [-100,0]
+8d62cdf	0.000000	crash	mixup first attempt (device bug)
+7139940	0.517585	keep	input mixup alpha 0.2
+8dece0e	0.548861	keep	mixup alpha 0.4
+02a8404	0.558685	keep	mixup alpha 1.0
+42ec8cb	0.557431	discard	mixup alpha 2.0
+01bb735	0.563989	keep	weight_decay 0.01 with mixup 1.0
+575636e	0.559547	discard	weight_decay 0.0
+a3d5370	0.550820	discard	dropout 0.2 with mixup
+da96fab	0.563493	discard	lr 0.0015
+0bf5f73	0.560148	discard	hidden 128 with mixup
+2dca5ba	0.585728	keep	proj_dim 64 with mixup
+c84b2db	0.570365	discard	proj_dim 128
+46b2eef	0.586225	keep	hidden 96 with proj 64
+2818c59	0.590301	keep	LSTM instead of GRU
+038afdc	0.582488	discard	LSTM hidden 128
+d912ecb	0.577576	discard	dropout 0.4 with LSTM
+d23c055	0.600988	keep	mixup alpha 1.5 with LSTM
+0a82457	0.594874	discard	mixup alpha 2.0 with LSTM
+33d75ea	0.587871	discard	2-layer LSTM
+4d82b8e	0.518682	discard	time-roll mixup
+cc1f124	0.556647	discard	causal logit smoothing k=3
+02a0258	0.388273	discard	NAdam optimizer
+d829758	0.590432	discard	linear LR warmup 10 epochs
+e93f51f	0.590902	discard	channel threshold 0.25
+d18ce38	0.572507	discard	manifold mixup post_proj
+442e45c	0.580450	discard	time-bin cutout 0.1
+e60-attempt1	0.000000	crash	channel dropout axis bug (channels/time swapped)
+e60-attempt2	0.000000	crash	dropout mask broadcast promoted x to 3-D
+4605e7a	0.582123	discard	channel dropout 0.2
+f4dcaf6	0.591268	discard	cosine eta_min=0
+e7ef689	0.582123	discard	mixup alpha 1.25
+094e783	0.564094	discard	mixup alpha 1.75
+9341fe4	0.596912	discard	gradient clipping 1.0
+674c357	0.594508	discard	weight decay 0.02
+f83a395	0.611000	keep	decode window starts at 50ms
+3262526	0.557039	discard	decode window starts at 100ms
+4a4b784	0.572873	discard	decode window starts at 25ms
+54f43bb	0.578883	discard	dropout 0.2 with window 50ms
+1f502c1	0.570704	discard	dropout 0.35 with window 50ms
+5a33880	0.579484	discard	channel threshold 0.6
+22a1bf4	0.591033	discard	hidden 112
+aba1be7	0.586930	discard	proj_dim 80
+8be48e8	0.567856	discard	lr 0.0008
+fe67bca	0.611000	discard	patience 700 (ties best, no gain)

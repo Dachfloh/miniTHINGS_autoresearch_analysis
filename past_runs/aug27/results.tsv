@@ -1,0 +1,55 @@
+commit	val_acc	status	description
+3159c79	0.412678	keep	baseline (default config: lfp, roi=3/IT, thresh 1.5, GRU hidden 64, proj 32, lr 1e-3, wd 0.01, patience 500)
+7a37bd2	0.471703	keep	Exp1: data upgrade (mua, rois V4+IT, thresh 0.5) + cosine LR (464 ch) [+0.059 vs baseline]
+8cc3283	0.580686	keep	Exp2: mixup alpha=1.0 + bigger model (hidden 128, proj 48, dropout 0.45) [+0.109 vs Exp1]
+9a559fb	0.557379	discard	Exp3: label smoothing 0.1 + grad clip 5.0 [worse than Exp2, -0.023]
+0b9ea10	0.567830	discard	Exp4: bidirectional GRU (eff hidden 256) [worse than Exp2, -0.013]
+c54203f	0.583089	keep	Exp5: lr 0.003 + lr_min 0.0003 [match agent2 stack, +0.0024 vs Exp2]
+690cb9b	0.584762	keep	Exp6: decode window 250->350ms [+0.0017 vs Exp5]
+52863bb	0.640886	keep	Exp7: concat lfp+mua (975 ch) + proj_dim 128 [+0.056 vs Exp6]
+e3b9a9d	0.000000	crash	Exp8 max-data (rois V1+V4+IT, thresh -1, 2048ch concat) OOM-killed (137) before training
+902da86	0.575878	discard	Exp8b: max-data (rois V1+V4+IT, thresh -1, 2048ch concat) + mem-fix [worse than Exp7, -0.065; V1+dprime-off hurts]
+4a65e33	0.625026	discard	Exp9: proj_dim 192 [worse than Exp7, -0.016; wider projection overfits]
+4de70db	0.639214	discard	Exp10: mixup alpha 1.5 [~tied with Exp7, -0.0017]
+3d23f3f	0.626097	discard	Exp11: 2-layer GRU [worse than Exp7, -0.015; depth overfits]
+3e28c59	0.621551	discard	Exp12: weight_decay 0.05 [worse, -0.019; too strong L2]
+8966d23	0.639083	discard	Exp13: channel threshold 0.25 (1010 ch) [~tied with Exp7, -0.0018]
+192c870	0.625862	discard	Exp14: decode step 5ms (60 steps) [worse, -0.015; finer resolution harder to train]
+d7a10d8	0.626803	discard	Exp15: batch_size 16 [worse, -0.014; smaller batch no help, trains to full 2000 epochs]
+2d69c17	0.630539	discard	Exp16: hidden 160 [worse, -0.010; recurrent width also overfits, 128 is sweet spot]
+c38bbf1	0.614575	discard	Exp17: n_epochs 3000 [worse, -0.026; more compute overfits, 2000 is better]
+c4b8e44	0.625862	discard	Exp18: avg_time 5 [worse, -0.015; less smoothing hurts, 10 is optimal]
+b96e202	0.654578	keep	Exp19: lr_min 3e-4->1e-5 (lower cosine floor, finer late fine-tuning) [+0.0137 vs Exp7]
+30db9b2	0.642323	discard	Exp20: lr_min 1e-6 [worse, -0.012; floor too low, 1e-5 is the sweet spot]
+f7a52c4	0.614313	discard	Exp21: lr 5e-3 [much worse, -0.040; 3e-3 is the peak]
+c1df6ee	0.625392	discard	Exp22: lr_T_max 1000 (faster anneal) [worse, -0.029; full-length cosine is optimal]
+979ff3b	0.601353	discard	Exp23: avg_time 20 [much worse, -0.053; 10 is sharply optimal, 20 too smooth]
+5b87aac	0.644257	discard	Exp24: decode window 450 [worse, -0.010; 350 is optimal, 450 too wide]
+4a164c7	0.485838	discard	Exp25: temporal-diff (+concat, standardize off) [much worse, -0.169; raw+standardize representation far superior]
+9e4a3d7	0.622622	discard	Exp26: 2-layer GRU + inter-layer dropout 0.3 [worse, -0.032; depth overfits even with inter-layer reg, matches Exp11]
+cd011d9	0.593175	discard	Exp27: label smoothing 0.1 (isolated) [much worse, -0.061; over-regularizes on top of mixup]
+3b2572f	0.626228	discard	Exp28: dropout_p 0.55 [worse, -0.028; over-regularizes, model not under-regularized]
+9d48e2d	0.639319	discard	Exp29: dropout_p 0.35 [worse, -0.015; 0.45 confirmed optimal (0.35 and 0.55 both worse)]
+b96e202	0.619487	discard	Exp30: decode window start 50->70 [worse, -0.035; early 50-70ms context helps GRU, removing it hurts; start=50 optimal]
+52c9d85	0.637751	discard	Exp31: mixup_alpha 0.5 [worse, -0.017; alpha=1.0 optimal (0.5 and 1.5 both worse), mixup bracketed]
+94395ad	0.639083	discard	Exp32: GELU input nonlinearity [worse, -0.016; linear projection preferred, GRU wants clean linear input]
+f328ab1	0.614339	discard	Exp33: lr_T_max 1700 [worse, -0.040; faster anneal hurts, gradual T_max=2000 optimal; schedule fully bracketed]
+d022252	0.488415	discard	Exp34: loss_at_last_timestep=False [catastrophic, -0.166; supervising early (50ms) timesteps floods gradient with noise; last-timestep loss strongly optimal]
+96962c4	0.630670	discard	Exp35: residual skip from input_proj [worse, -0.024; raw instantaneous projection degrades integrated GRU state; base architecture optimal]
+164222d	0.633675	discard	Exp36: AdamW beta1 0.95 [worse, -0.021; default beta1=0.9 optimal]
+5baf0f3	0.633805	discard	Exp37: AdamW beta2 0.99 [worse, -0.021; default betas (0.9,0.999) optimal, optimizer fully exhausted]
+aaee2ff	0.610734	discard	Exp38: post_dropout_p 0.3 (input 0.45) [much worse, -0.044; post-GRU dropout critical, symmetric 0.45/0.45 optimal, asymmetry breaks it]
+b96e202	0.644623	discard	Exp39: decode_time_last 340 (eval 330ms peak) [worse, -0.010; training-for-330 yields lower best-over-epochs than 340; 340ms target genuinely better, window end=350 confirmed optimal]
+3ac84fe	0.642323	discard	Exp40: lr 4e-3 [worse, -0.012; overshoots, LR optimum at/below 3e-3]
+f1438b3	0.647262	discard	Exp41: lr 2.5e-3 [worse, -0.007; LR optimum confirmed exactly at 3e-3 (2.5e-3 and 4e-3 both worse)]
+8d6bfd0	0.654578	neutral	Exp42: EMA decay 0.999 [EMA acc 0.542 << best_val 0.6546; wide window averages rising phase, no diversity under single cosine; reported max=best_val, no change]
+71321e9	0.6431	regression	Exp43: warm-restart snapshot SWA (CosineAnnealingWarmRestarts T_0=500, snap_every=500). best_val 0.6431, SWA(2 snap)=0.6220. Only 2 snapshots (early stop before 1500/2000). Warm restarts disrupt single-cycle optimization that was optimal. Discard.
+5484030	0.6416	regression	Exp44: gradient clipping max_norm 5.0 on Exp19 config. Clips large updates the cosine+mixup optimization relies on to reach peak. Discard.
+4f684aa	0.6361	regression	Exp45: input Gaussian noise std 0.1 during training. Excess perturbation on top of dropout0.45+mixup1.0 over-regularizes. Discard.
+dd039da	0.6822	KEEPER	Exp46: 5-member multi-seed ensemble (softmax averaging). Members 0.6546/0.6394/0.6398/0.6161/0.6277; ensemble 0.6822 (+0.0276 over plateau). First improvement over 0.6546 in 46 experiments. KEEP.
+a4a6168	0.6785	neutral	Exp47: 10-member ensemble. 0.6785 vs Exp46 5-member 0.6822 (within GPU nondeterminism noise ~+-0.015). Scaling 5->10 no gain; extra members add noise. Members vary run-to-run (cudnn nondeterminism). Neutral. Best stays Exp46.
+389899e	0.6628	regression	Exp48: diverse ensemble (per-member dropout 0.35/0.40/0.45/0.50/0.55). Members weaker (avg 0.622 vs Exp46 0.636); quality loss > diversity gain. Seed 44 reliably bad (~0.588). Member quality dominates diversity. Discard.
+683acd7	0.6779	neutral	Exp49: 5-member ensemble + temporal avg over last 3 timesteps (320/330/340ms). 0.6779 vs Exp46 0.6822 (within noise). Temporal averaging no gain. Discard. Best stays Exp46 (0.6822).
+1746670	0.6707	neutral	Exp50: per-member top-5 checkpoint averaging + 5-member ensemble. Averaging lifted weak members (seed44 0.588->0.607) but reduced member diversity (ensemble bonus shrank +0.028->+0.013). Quality/diversity tradeoff nets neutral. Discard. Best stays Exp46 (0.6822).
+23ecd8f	0.6846	KEEPER	Exp51: 5-member bagging ensemble (bootstrap with-replacement per member). Members weak (avg 0.603, ~63pct unique trials) but decorrelated -> huge ensemble bonus +0.071 over best member. 0.6846 new best (marginal over Exp46 0.6822, within noise, but sound mechanism). KEEP and scale.
+baf42db	0.6870	KEEPER	Exp52: 10-member bagging ensemble. 0.6870 > 5-member bagging 0.6846 (Exp51). Confirms decorrelated members scale with N (unlike same-config Exp47 10-member 0.6785 which did NOT beat 5-member 0.6822). Members 1-5 reproduce Exp51. New best. KEEP, scale further.

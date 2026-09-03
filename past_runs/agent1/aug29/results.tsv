@@ -1,0 +1,77 @@
+commit	val_acc	status	description
+3159c79	0.403663	keep	baseline (default config, monkeyF lfp roi3)
+13a4684	0.366273	discard	lr 0.003, weight_decay 0.05
+16369db	0.377848	discard	hidden_size 128
+36e4296	0.308833	discard	loss applied at all timesteps
+2c04659	0.371551	discard	--temporal-diff preprocessing (standardize auto-off)
+5c87e26	0.407504	keep	good_channel_threshold 1.0 (273 channels vs 202)
+8804c74	0.403559	discard	good_channel_threshold 0.5 (319 channels)
+fd7533f	0.393447	discard	all ROIs V1+V4+IT, threshold 1.0 (820 ch)
+e0cbf3c	0.416649	keep	neural_data mua, threshold 1.0 (153 ch)
+fa9e5a0	0.417093	keep	mua, threshold 1.5 (84 ch)
+5ade9e2	0.376150	discard	mua, threshold 2.0 (48 ch)
+fa9e5a0	0.388430	discard	decode window 50-350ms
+2f49f97	0.428172	keep	lr 0.0005
+afa4a6d	0.420020	discard	lr 0.0002
+39940c1	0.392140	discard	proj_dim 64
+e8b063e	0.428773	keep	cosine LR schedule (lr 5e-4 base)
+1a5c0cd	0.428773	discard	n_epochs 3000, patience 800 + cosine (equal, stopped ep866)
+c66582e	0.405126	discard	dropout 0.2
+a0b3c1b	0.389501	discard	dropout 0.5
+ea46a7b	0.417747	discard	weight_decay 0.1
+c2131e2	0.459709	keep	combine mua+lfp channels (328 ch)
+7e686a6	0.465824	keep	proj_dim 64 with mua+lfp
+0d39b11	0.471337	keep	hidden_size 128 with proj64 mua+lfp
+ad2df68	0.440113	discard	GRU num_layers 2
+fa4fa0d	0.450930	discard	lr 0.001 with bigger model
+ccfb453	0.459003	discard	batch_size 64
+e51dd51	0.481292	keep	avg_time 20ms smoothing
+42c090a	0.462087	discard	avg_time 30ms
+e51dd51	0.470866	discard	decode-time stride 20ms
+fe324d4	0.471337	discard	gradient clipping norm 1.0
+ac8b218	0.457750	discard	label smoothing 0.1
+92dfb0c	0.493442	keep	rois V4+IT (2,3), mua+lfp (566 ch)
+1fa43d8	0.478940	discard	all ROIs (1,2,3) mua+lfp (1007 ch)
+e60f8c2	0.514841	keep	proj_dim 128 (566 ch V4+IT mua+lfp)
+e5f911a	0.490907	discard	hidden_size 256
+9f58c7c	0.517846	keep	dropout 0.4 (proj128, V4+IT mua+lfp)
+445b9df	0.497204	discard	dropout 0.5
+b0b286e	0.512568	discard	weight_decay 0.05 (bigger model)
+5e49a74	0.507760	discard	input_noise 0.1
+9f58c7c	0.494304	discard	decode_time_first 20ms
+3a61407	0.501751	discard	attention pooling over time
+5ccdf9d	0.502953	discard	threshold 1.0 V4+IT mua+lfp (721 ch)
+9f58c7c	0.507394	discard	decode window 50-300ms (last-step at 290ms)
+c8c43ba	0.447168	discard	baseline correction [-100,0]
+5506332	0.477477	discard	lfp threshold 2.5 when combining (318 ch)
+931ba9d	0.501359	discard	avg_time 15ms
+b408569	0.497253	discard	batch_size 16
+602684c	0.500784	discard	avg_time 25ms
+7e5e39a	0.526129	keep	bidirectional GRU (hidden 128x2)
+9e7fc6c	0.512542	discard	bidirectional hidden 192
+75119eb	0.513169	discard	bidirectional hidden 96
+2cec5c1	0.505226	discard	lr 7e-4 bidirectional
+9f7b1c6	0.522157	discard	lr 4e-4
+ddb9bff	0.503449	discard	proj_dim 160
+0e78ee6	0.521086	discard	remove input LayerNorm
+7e71986	0.372100	discard	time-jitter 2 bins augmentation
+94aff70	0.508100	discard	dropout 0.45
+7e5e39a	0.504625	discard	decode_time_first 80ms
+e75fb7e	0.495610	discard	remove input dropout
+6919ae6	0.507290	discard	lfp threshold 1.25 when combining (600 ch)
+04fa405	0.495114	discard	bidirectional hidden 144
+2ea6bc2	0.522157	discard	proj_dim 96 bidirectional
+7f41fe0	0.520955	discard	lfp avg_time 30ms when combining
+644a91a	0.512672	discard	dropout 0.35
+ba35f02	0.486152	discard	LSTM bidirectional (vs GRU)
+ef8ee39	0.513169	discard	bidirectional hidden 96 (192-out)
+68599e9	0.504154	discard	LFP channel threshold 1.75 (MUA 1.5)
+32e101a	0.491900	discard	GELU nonlinearity in input_proj
+2c3e9bf	0.537913	keep	per-modality input projections (MUA/LFP separate 64-dim proj)
+64c0e42	0.518447	discard	per-modality proj 128 each (concat 256)
+d73ebf2	0.511732	discard	asymmetric modality proj MUA96/LFP32
+525da0e	0.524352	discard	LFP projection dropout 0.55
+8f4cfc1	0.530100	discard	readout pooling last 4 steps
+516e996	0.516487	discard	readout pooling last 2 steps
+899d9f1	0.513064	discard	remove post-RNN LayerNorm+Dropout
+d77aff2	0.524587	discard	weight_decay 0.02
