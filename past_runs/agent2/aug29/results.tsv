@@ -1,0 +1,77 @@
+commit	val_acc	status	description
+3159c79	0.403663	keep	baseline (default config, GRU h64 proj32 lr1e-3 wd0.01 dropout0.3, LFP dprime chan-sel ROI3, 2000 epochs full)
+2b08014	0.398620	discard	weight_decay 0.05 (early stop ep679)
+a3afba6	0.400920	discard	dropout_p 0.5 (early stop ep1814)
+03c2594	0.308833	discard	loss at all timesteps (much worse; last-step loss is important)
+23c24ef	0.415238	keep	lr 0.0005 (early stop ep969)
+e793349	0.423991	keep	lr 0.0003 (early stop ep1428)
+1c83417	0.393238	discard	lr 0.0002 (too low)
+5492310	0.370062	discard	hidden 128 proj 64 (overfits badly)
+3b3d0ee	0.370636	discard	hidden 32 proj 16 (underfits)
+3e6fc90	0.412808	discard	good_channel_threshold 1.0 (273 chans, noisy)
+a43fff2	0.351772	discard	good_channel_threshold 2.0 (153 chans, too strict)
+061d68c	0.407165	discard	decode window 50-350ms
+2b99da7	0.422398	discard	neural_data mua (84 chans, close but below lfp)
+cf63314	0.397157	discard	temporal-diff input (lfp)
+0ab4007	0.487563	keep	lfp+mua concat (328 chans)
+6d3a873	0.486831	discard	proj_dim 64 on concat input (no gain)
+edc6455	0.463890	discard	label smoothing 0.1
+85ab5bb	0.478078	discard	dropout_p 0.4
+86bb890	0.494905	keep	rois [2,3] V4+IT with lfp+mua concat
+404c3ff	0.452237	discard	rois [1,2,3] V1 noise hurts
+634174d	0.479515	discard	avg_time 20
+70bc5d6	0.498249	keep	bidirectional GRU
+c838051	0.474474	discard	BiGRU + loss all timesteps
+0a2b6fc	0.491168	discard	BiGRU lr 2e-4
+5f8c506	0.502325	keep	Gaussian noise augmentation sigma 0.2
+5f8c506	0.508204	keep	Gaussian noise augmentation sigma 0.4
+5f8c506	0.508936	keep	Gaussian noise augmentation sigma 0.6
+5f8c506	0.510269	keep	Gaussian noise augmentation sigma 0.8
+5f8c506	0.494644	discard	Gaussian noise sigma 1.0 (too strong)
+41ee607	0.500915	discard	hidden 128 proj 64 + noise 0.8 (still overfits)
+39a0fae	0.497884	discard	time-jitter 2 steps + noise 0.5
+ef63f25	0.479411	discard	dropout 0.2 + noise 0.8
+897d6fa	0.493433	discard	batch size 64
+b01c48f	0.507734	discard	ReduceLROnPlateau scheduler (factor 0.5, pat 100)
+a0681ae	0.510269	discard	patience 700 (identical best val, no gain)
+5d0af34	0.483251	discard	attention pooling (last-step readout stays)
+8311839	0.478888	discard	BiLSTM instead of BiGRU
+6d48d71	0.536842	keep	input mixup alpha 0.2
+f6f4315	0.540317	keep	mixup alpha 0.5
+e9e6a1d	0.556412	keep	mixup alpha 1.0 (uniform) — gap closed, now slightly underfitting
+2a5868b	0.572873	keep	hidden 128 proj 64 under mixup 1.0
+3efd32d	0.560854	discard	hidden 192 proj 96 (past optimum)
+73e5a35	0.566132	discard	dropout 0.2 under mixup
+2a5868b	0.576113	keep	reduce noise sigma to 0.4 under mixup 1.0
+2a5868b	0.588132	keep	REMOVE noise aug entirely (mixup 1.0 alone) — simplification win
+48c6bcf	0.584657	discard	dropout 0.2 mixup-only
+a8f25c5	0.588132	discard	n_epochs 3000 (identical best; cap not binding)
+464e3fe	0.598453	keep	lr 4e-4 under mixup-only
+6367ef8	0.593175	discard	lr 6e-4
+c16baed	0.608304	keep	weight_decay 0.005
+e876ae9	0.606997	discard	weight_decay 0.002
+f02d417	0.000000	crash	3-way dirichlet mixup — killed: ~2x compute on top of already-long runs, way past baseline runtime
+8ebdc97	0.593776	discard	mixup alpha 1.5
+25f09bc	0.523751	discard	intra-class mixup (removes the inter-class regularizing signal)
+a6260ff	0.605795	discard	SWA online weight averaging from ep 800
+exp55	0.595344	discard	MLP classifier head hidden 64
+exp56	0.594743	discard	proj_dim 96
+exp57	0.594142	discard	lr 5e-4
+exp58	0.611309	keep	weight_decay 0.004
+exp59	0.606632	discard	weight_decay 0.003
+exp60	0.591372	discard	dropout_p 0.25
+exp61	0.605456	discard	gradient clipping norm 1.0
+exp62	0.598584	discard	hidden_size 160 (75min, close to kill threshold)
+exp63	0.595389	discard	batch_size 64 + lr 6e-4
+exp64	0.611674	keep	mixup_alpha 0.75
+exp65	0.592444	discard	mixup_alpha 0.5
+exp66	0.601850	discard	dropout_p 0.35
+exp67	0.610603	discard	lr 4.5e-4
+exp68	0.597147	discard	good_channel_threshold 1.0
+exp69	0.611674	discard	patience 800 (identical result, not binding)
+exp70	0.600752	discard	weight_decay 0.0045
+exp71	0.585990	discard	Gaussian noise std 0.2 (flag-only)
+exp72	0.611700	keep	AdamW betas (0.9, 0.95)
+exp73	0.591843	discard	mixup_alpha 0.85
+exp74	0.587296	discard	temporal smoothing conv kernel 3
+exp75	0.563049	discard	proj_dim 32

@@ -1,0 +1,33 @@
+commit	val_acc	status	description
+34b75b3	0.412678	keep	baseline (default config)
+6ea6a8f	0.384093	discard	stronger reg: dropout 0.5, weight_decay 0.05
+09e6c72	0.412704	keep	label smoothing 0.1 (tiny gain over baseline)
+b268ed3	0.413880	keep	concat mean-pool readout at every step
+1c6305d	0.392140	discard	bidirectional GRU
+0ceab4d	0.411502	discard	proj_dim 64
+721cc47	0.378397	discard	temporal-diff preprocessing (per-session z-scored diffs)
+d69a95d	0.416884	keep	cosine LR annealing
+d69a95d	0.403193	discard	wider window 0-250ms (decode-time-first 0)
+cc5fb75	0.476249	keep	mixup augmentation alpha 0.2
+c9301b6	0.490672	keep	proj_dim 64 + mixup (capacity + aug)
+e4c0edc	0.484166	discard	hidden_size 128
+9716c7f	0.496081	keep	patience 800 (full cosine decay)
+abc9c25	0.489601	discard	mixup alpha 0.4
+779cb7e	0.474093	discard	batch_size 64, lr 2e-3
+1dd2587	0.497152	keep	2-layer GRU (with mixup)
+ca305c4	0.507133	keep	n_epochs 2600 (longer cosine)
+e3be9e6	0.484898	discard	max+mean pooled readout
+fbe88b6	0.504494	discard	weight_decay 0.03
+22caeca	0.506297	discard	attention pooling (ties mean-pool, more complex)
+c383171	0.500026	discard	gaussian input noise std 0.1
+04a2243	0.501254	discard	drop label smoothing (needed)
+b0kvd7spw	0.475282	discard	num_workers 8 (2.5x slower, tiny batches)
+d736e44	0.503658	discard	EMA decay 0.999 (no gain, over time budget)
+bc54524	0.481762	discard	dropout 0.2
+cc7fe40	0.482494	discard	lr 7e-4
+1592ed6	0.491273	discard	time masking + mixup
+984db12	0.488373	discard	3-layer GRU (2000 epochs)
+0486b1f	0.505670	discard	label smoothing 0.15
+fefaf5f	0.476380	discard	mixup alpha 0.15
+7e7d635	0.467835	discard	lr 1.5e-3
+e92ddb3	0.490907	discard	hidden_size 48
