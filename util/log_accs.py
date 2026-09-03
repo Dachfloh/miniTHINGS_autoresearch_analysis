@@ -10,7 +10,7 @@ import os
 
 import pandas as pd
 
-OUTPUT_CSV = "experiment_log.csv"
+OUTPUT_CSV = "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/experiment_log.csv"
 HEADER = ["model", "tag", "ag1", "ag2", "ag3", "ag4", "ag5", "ag6", "ag7"]
 
 FILES = [
