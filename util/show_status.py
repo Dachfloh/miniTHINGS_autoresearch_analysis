@@ -6,8 +6,6 @@ files = [
   "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent3/results.tsv",
   "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent4/results.tsv",
   "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent5/results.tsv",
-  "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent6/results.tsv",
-  "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent7/results.tsv",
 ]
 
 for filepath in files:
@@ -16,6 +14,8 @@ for filepath in files:
 
   with open(filepath, newline='') as f:
     reader = csv.DictReader(f, delimiter='\t')
-    max_value = max(float(row['test_acc']) for row in reader)
-
-  print(f"Max accuracy: {max_value}\n")
+    if list(reader):
+        max_value = max(float(row['test_acc']) for row in reader)
+        print(f"Max accuracy: {max_value}\n")
+    else: 
+        print("starting ...")

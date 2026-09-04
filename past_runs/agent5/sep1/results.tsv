@@ -1,0 +1,33 @@
+commit	test_acc	status	description
+df70e45	0.365803	keep	baseline (default config)
+3d5a4de	0.325564	discard	widen proj_dim 32->64, hidden 64->128 (more capacity overfit)
+c04f6f7	0.363529	discard	weight_decay 0.01->0.05 (slightly worse)
+b2a7693	0.321828	discard	lr 0.001->0.003 (too high, worse)
+15a884d	0.401886	keep	mixup alpha=0.4 (big gen. gain to unseen images)
+1c8bb86	0.431203	keep	widen proj 64/hidden 128 on top of mixup
+6afe438	0.404525	discard	2 GRU layers (worse, ran full 2000 epochs)
+43fc349	0.442856	keep	cosine LR schedule + grad clip 1.0 on mixup+widen base
+08f574d	0.458194	keep	bidirectional GRU (classifier in 256)
+7c9dc46	0.467235	keep	mixup_alpha 0.4->1.0 (more aggressive mixing)
+79582f5	0.455581	discard	dropout 0.3->0.2 (over-regularized? worse)
+04e3825	0.403062	discard	dropout 0.3->0.4 (too high, test collapsed)
+2add877	0.466764	discard	larger proj128/hidden256 (val up but test ~flat)
+08a11ed	0.467574	keep	aux all-timestep loss weight 0.3 (marginal)
+09241b0	0.468541	keep	swap GRU->LSTM (bidir, mixup, etc.)
+28d2120	0.470475	keep	extend decode window 250->450ms (40 timesteps)
+28d2120	0.470135	discard	finer 5ms step 80 timesteps (no gain)
+3cafb6a	0.445339	discard	label smoothing 0.1 (over-smooths with mixup)
+47072bc	0.476912	keep	batch_size 32->64
+84ff16c	0.470129	discard	batch_size 64->128 (too large, worse)
+9e1b344	0.445269	discard	n_epochs 2500 (val up but test collapsed; overfit val)
+cff1fdf	0.476399	discard	n_epochs 1500 (slightly worse than 2000)
+4fa75aa	0.481611	keep	aux_loss_weight 0.3->0.5
+357ecb0	0.465286	discard	aux_loss_weight 0.5->0.8 (too high, worse)
+0cd132e	0.475295	discard	num_layers 1->2 (worse again, 1 layer best)
+f690643	0.458381	discard	weight_decay 0.01->0.02 (val overfit, test worse)
+fbe9422	0.475710	discard	mixup_alpha 1.0->1.5 (too heavy, worse)
+5fac02d	0.469996	discard	lr 0.001->0.002 (too high, early stop val drop)
+7bea4fd	0.466182	discard	lr 0.001->0.0005 (too low, worse)
+6dd91c5	0.451879	discard	hidden_size 128->64 (too small, worse)
+5b5fb43	0.474596	discard	grad_clip 1.0->0.5 (too tight, worse)
+a8ae594	0.455769	discard	proj_dim 64->96 (val overfit, test worse)

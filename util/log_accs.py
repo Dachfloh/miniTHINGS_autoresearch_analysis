@@ -11,7 +11,7 @@ import os
 import pandas as pd
 
 OUTPUT_CSV = "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/experiment_log.csv"
-HEADER = ["model", "tag", "ag1", "ag2", "ag3", "ag4", "ag5", "ag6", "ag7"]
+HEADER = ["model", "tag", "ag1", "ag2", "ag3", "ag4", "ag5"]
 
 FILES = [
     "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent1/results.tsv",
@@ -19,14 +19,12 @@ FILES = [
     "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent3/results.tsv",
     "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent4/results.tsv",
     "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent5/results.tsv",
-    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent6/results.tsv",
-    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent7/results.tsv",
 ]
 
 
 def log_max_test_acc(model: str, tag: str, csv_paths: list[str], output_csv: str = OUTPUT_CSV) -> None:
-    if len(csv_paths) != 7:
-        raise ValueError(f"Expected exactly 7 files, got {len(csv_paths)}")
+    if len(csv_paths) != 5:
+        raise ValueError(f"Expected exactly 5 files, got {len(csv_paths)}")
 
     max_accs = []
     for path in csv_paths:
