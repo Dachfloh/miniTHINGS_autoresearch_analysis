@@ -12,9 +12,15 @@ miniTHINGS_analysis/
 ├── embed_trajectories.py    # Embed program trajectories (ollama) -> CSV + .npz
 ├── plot_trajectories.py     # t-SNE + plot trajectories from the bundle
 ├── plot_results.py          # Plot val_acc progression from a results.tsv
+├── plot_multi_results.py    # Plot mean val_acc across runs (--tag <tag>)
 ├── repolist                 # TSV list of repos/branches to embed (see below)
-├── past_runs/               # Archived results.tsv / plots from past runs (tracked)
+├── past_runs/               # Archived results.tsv from past runs (tracked)
 ├── plotting/                # Python venv for the analysis scripts (gitignored)
+├── experiment_log.csv       # Summary metrics per model/tag (written by util/log_accs.py)
+├── Plots/                   # Default output of both plot scripts
+│   ├── multi/               #   Mean-across-runs plots, one per tag (<model>_<tag>.png)
+│   ├── agent1/sep4/ …       #   Per-run plots, mirroring the past_runs/ structure
+│   └── autoresearch/jul05/ …
 └── t-SNE-trajectories.png   # Example trajectory plot
 ```
 
@@ -123,7 +129,12 @@ python plot_trajectories.py trajectories --exclude 4 12 --out selected.png
 
 ```bash
 # Plot val_acc progression from a single results.tsv
-python plot_results.py past_runs/jul05/results.tsv
+# (saves to Plots/, mirroring the past_runs/ path)
+python plot_results.py past_runs/autoresearch/jul05/results.tsv
+
+# Plot the mean val_acc across all runs of a tag, with min-max band
+# (saves to Plots/multi/<model>_<tag>.png, model name from experiment_log.csv)
+python plot_multi_results.py --tag sep4
 ```
 
 ## Dependencies
