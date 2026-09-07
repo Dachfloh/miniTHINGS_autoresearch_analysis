@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+cf26eb9	0.332091	keep	baseline (default config)
+5ed3ec4	0.345913	keep	bidirectional GRU (hidden 64x2)
+08f1f1a	0.340505	discard	aux loss over all timesteps
+8144e89	0.337861	discard	label smoothing 0.1
+a07c24b	0.344351	discard	decode window 50-500ms step 20
+cc8d683	0.330649	discard	lr 0.0005
+3032c04	0.350721	keep	input proj_dim 64
+31d7b8b	0.340505	discard	input proj_dim 128
+9570885	0.320312	discard	hidden_size 128
+6cdff11	0.349880	discard	weight_decay 0.05
+5cdee9f	0.357377	keep	batch_size 64
+9cbe149	0.341364	discard	batch_size 128
+fb067e6	0.357540	keep	attention pooling over time
+ac9ecb3	0.296664	discard	2-layer GRU
+98b29c3	0.351322	discard	LSTM (batch 32, first run OOM)
+67facaa	0.351254	discard	cosine LR schedule
+0ef9d15	0.370761	keep	dropout_p 0.5
+cf25bca	0.375845	keep	dropout_p 0.6
+64b3b14	0.377160	keep	dropout_p 0.7
+6a03c26	0.366180	discard	dropout_p 0.8
+b527046	0.373554	discard	gradient clipping 1.0
+4d63a66	0.372677	discard	weight_decay 0.02
+6159623	0.357377	discard	lr 0.003 (first run OOM)
+e40f7a9	0.366343	discard	decode window 50-500ms step 20 (dropout 0.7)
+43a7f29	0.374643	discard	proj_dim 96
+cc5eb99	0.366229	discard	dropout_p 0.75
+7ac4a8a	0.376998	discard	hidden_size 48
+457a05f	0.371800	discard	proj_dim 80
+a4c4a41	0.400463	keep	batch_size 96
+203339f	0.371284	discard	batch_size 80
+cc5663c	0.367900	discard	batch_size 112
+45eba5c	0.387153	discard	batch 96 + dropout 0.75
+5468a0c	0.406829	keep	batch 96 + proj_dim 80
+5468a0c	0.387102	final	test accuracy of best config (batch 96 + proj_dim 80)

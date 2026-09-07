@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+cae6dc8	0.332091	keep	baseline (default config, patience 500, GRU h64 p32, lr 1e-3 wd 0.01, ~13min)
+c19e55c	0.342548	keep	lr 0.003, weight_decay 0.05
+7c3e8d7	0.328486	discard	proj 64, hidden 128 (overfits, worse than h64)
+4c2bd84	0.337740	discard	aux loss all timesteps w=0.3
+2096a24	0.306851	discard	dropout 0.5
+e3ea5c0	0.275240	discard	lr 0.01 (too high)
+a966b7a	0.368149	keep	cosine annealing lr (peak 0.003) to 0 over 2000 epochs
+93e6ccd	0.368149	discard	lr 0.006 + cosine (equal to lr 0.003)
+a966b7a	0.347957	discard	decode window 50-350ms (30 steps, worse than 50-250)
+0b05cd5	0.361178	discard	label smoothing 0.1
+45d1ce5	0.342308	discard	--temporal-diff input (kept the flag-compat fix, model config = e06)
+4d1eea9	0.299038	discard	2-layer GRU (overfits)
+786c739	0.369591	keep	hidden 32 (smaller model, simplification win)
+0f96a06	0.316827	discard	proj_dim 16 (bottleneck too tight)
+3880a67	0.334768	discard	batch_size 64 (fewer steps, worse)
+979866b	0.332091	discard	input noise std 0.1
+5fa81d8	0.362740	discard	bidirectional GRU
+dd01d56	0.376202	keep	n_epochs 3000 (longer cosine schedule)
+5bd1a10	0.370793	discard	n_epochs 4000 (worse than 3000)
+c866427	0.365986	discard	lr warmup 50 epochs
+5e8a5a3	0.270913	discard	weight_decay 0.1 (way too strong)
+08b3c9f	0.299399	discard	per-session z-scoring (loses cross-session signal)
+ec95852	0.312019	discard	mean-pool concat readout
+dd01d56	0.350120	discard	decode window 0-240ms (early bins are noise)
+ebc95d3	0.335216	discard	weight EMA 0.99
+dd01d56	0.309375	discard	decode-time-step 5ms (correlated noise)
+dd01d56	0.296635	discard	decode-time-step 20ms (too coarse)
+b1dbd45	0.332332	discard	dropout 0.15
+16ba69b	0.354928	discard	mixup alpha 0.2
+4eef5fa	0.322837	discard	hidden 48 proj 48
+63cc952	0.313822	discard	lr 0.002
+23e9f2f	0.355769	discard	LSTM instead of GRU
+93a0f74	0.378005	keep	n_epochs 3500
+93a0f74	0.383152	final	final test-set evaluation of best config (--test)

@@ -7,11 +7,12 @@ Usage:
 
 import argparse
 import os
+import math
 
 import pandas as pd
 
 OUTPUT_CSV = "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch_analysis/experiment_log.csv"
-HEADER = ["model", "tag", "ag1", "ag2", "ag3", "ag4", "ag5"]
+HEADER = ["model", "tag", "ag1", "ag2", "ag3", "ag4", "ag5", "mean", "std",]
 
 FILES = [
     "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent1/results.tsv",
@@ -29,11 +30,16 @@ def log_max_test_acc(model: str, tag: str, csv_paths: list[str], output_csv: str
     max_accs = []
     for path in csv_paths:
         df = pd.read_csv(path, sep="\t")
-        if "test_acc" not in df.columns:
+        if "val_acc" not in df.columns:
             raise ValueError(f"Column 'test_acc' not found in {path}")
-        max_accs.append(df["test_acc"].max())
+        max_accs.append(df["val_acc"].iloc[-1])
 
-    row = [model, tag] + max_accs
+    mean_acc = (sum(max_accs) / len(max_accs))
+
+    variance = sum((x - mean_acc) ** 2 for x in max_accs) / len(max_accs)
+    std = math.sqrt(variance)
+
+    row = [model, tag] + max_accs + [mean_acc, std]
 
     write_header = not os.path.exists(output_csv) or os.path.getsize(output_csv) == 0
     pd.DataFrame([row], columns=HEADER).to_csv(

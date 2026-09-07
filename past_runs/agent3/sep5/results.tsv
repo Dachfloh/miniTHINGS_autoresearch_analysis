@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+5bb1a79	0.332091	keep	baseline (default config)
+e3a95ad	0.333654	keep	cosine annealing lr schedule
+45212be	0.327284	discard	lr 0.003 with cosine annealing
+a1ffccc	0.361538	keep	bidirectional GRU
+aaec23c	0.309615	discard	bidirectional GRU hidden 128
+cd27acb	0.351322	discard	bidirectional GRU, lr 0.003
+2bd8df4	0.320673	discard	bidirectional GRU, dropout 0.1
+b629282	0.329087	discard	LSTM instead of GRU (bidirectional)
+2d78c36	0.328807	discard	bidirectional GRU, batch size 64
+fc5da11	0.377404	keep	bidirectional GRU, weight_decay 0.05
+37d7b8a	0.355769	discard	bidirectional GRU, weight_decay 0.1
+8a85758	0.378005	keep	bidirectional GRU, proj_dim 64
+96f3cf0	0.371755	discard	bidirectional GRU, proj_dim 128
+d19cd76	0.320793	discard	bidirectional GRU, 2 layers
+9d5e897	0.390625	keep	gradient clipping max_norm 1.0
+2f1f88c	0.390024	discard	gradient clipping max_norm 0.5
+f00d6c9	0.363942	discard	bidirectional GRU, dropout 0.2
+c4ed742	0.387380	discard	bidirectional GRU, lr 0.0005
+a39964c	0.372596	discard	label smoothing 0.1
+d76c4e8	0.385216	discard	n_epochs 3000
+ce73bfb	0.375721	discard	OneCycleLR scheduler
+7124490	0.360337	discard	temporal-diff preprocessing
+101666e	0.336538	discard	bidirectional GRU hidden_size 96
+40c5fa5	0.373798	discard	bidirectional GRU, proj_dim 32
+8e5b4e6	0.352163	discard	bidirectional GRU, dropout 0.4
+633fa81	0.368990	discard	bidirectional GRU, weight_decay 0.02
+515f901	0.385073	discard	bidirectional GRU, batch size 16
+6bffc10	0.384014	discard	bidirectional GRU, lr 0.002
+087aebc	0.347957	discard	bidirectional GRU, 2 layers, inter-layer dropout 0.1
+bc393e3	0.374399	discard	label smoothing 0.05
+bcf4696	0.391226	keep	bidirectional GRU, hidden_size 48
+32ba4f8	0.384014	discard	n_epochs 1500
+bcf4696	0.251322	discard	shuffle-time training augmentation
+bcf4696	0.398725	final	FINAL: best config (hidden 48) with --test, test_accuracy

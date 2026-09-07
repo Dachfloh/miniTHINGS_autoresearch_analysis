@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+b9b2838	0.332091	keep	baseline (default config)
+9f900c9	0.323918	discard	dropout 0.5, weight_decay 0.05 (stronger reg)
+5fade49	0.327885	discard	lr 0.003
+f15b459	0.331010	discard	label smoothing 0.1
+b9b2838	0.348918	keep	decode window 50-450ms (41 steps)
+a4aeb89	0.334515	discard	batch 128, lr 0.002, n_epochs 4000
+04552f7	0.326014	discard	batch 64, lr 0.0015, n_epochs 4000
+5f9df86	0.343750	discard	GPU-resident training loop, n_epochs 4000
+382acce	0.343750	discard	window 50-850ms w/ GPU loop
+bf8fbf4	0.341346	discard	bidirectional GRU
+0eac2df	0.337740	discard	causal attention pooling readout
+12b0246	0.000000	crash	temporal-diff (incompatible with standardize_data=1)
+6e6ed9e	0.370800	keep	3-model ensemble, joint early stopping on averaged logits
+b89683f	0.395235	keep	emsemble of 5, patience 400 (ran 58min, over budget)
+5a54e0d	0.395235	keep	ens5 n_epochs 900: equal val_acc to exp13, fits 45min budget
+8c78635	0.379352	discard	bagging 0.8 per member
+20ebd1a	0.389126	discard	cosine LR schedule
+7009e54	0.378742	discard	input noise augmentation std 0.1
+d774265	0.391570	discard	ens8 hidden-32 members, 1600 epochs (2h, over budget)
+7908cb0	0.392792	discard	member lr 0.002
+cc5c0f4	0.384850	discard	causal logit smoothing (5 steps)
+07679ba	0.413561	keep	proj_dim 64, ens4
+b7f5087	0.400122	discard	proj_dim 128, ens3
+5444d1c	0.403177	discard	proj_dim 64, ens5
+4a91f8a	0.395235	discard	dropout 0.4, proj 64 ens4
+6b7f766	0.409285	discard	decode window 50-550ms, 700 epochs
+f51b116	0.403787	discard	model seed 43 reroll of best config
+e8d488a	0.413561	discard	batch 48, lr 0.0015, 1350 epochs (exact tie with best)
+f739965	0.386683	discard	weight_decay 0.05
+b435802	0.408674	discard	model seed 44 reroll
+3a82b26	0.394624	discard	model seed 45 reroll
+bfc8693	0.398900	discard	model seed 46 reroll
+a6d79d4	0.403177	discard	model seed 47 reroll
+07679ba	0.357755	final	final test-set evaluation of best config (--test)

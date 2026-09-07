@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+183bf73	0.332091	keep	baseline (default config)
+d1ff03d	0.345312	keep	lr 3e-4 (lower lr)
+cc466cc	0.325481	discard	hidden_size 128 (more capacity, worse)
+08b0e0e	0.350120	keep	weight_decay 0.05
+1d37234	0.344351	discard	dropout 0.4
+9c0b143	0.356971	keep	lr 1e-4
+62031d8	0.375000	keep	weight_decay 0.1
+ae55a85	0.341226	discard	weight_decay 0.2
+70c3b8d	0.388582	keep	label smoothing 0.1
+5cb4da9	0.389423	keep	label smoothing 0.2
+216c150	0.366346	discard	label smoothing 0.3
+2b3c58d	0.357091	discard	hidden_size 128 + strong reg
+24adbbf	0.318269	discard	train loss at all timesteps
+e9a52fb	0.363387	discard	batch size 64
+f792e45	0.329327	discard	dropout 0.5
+a0c29ad	0.312861	discard	proj_dim 16
+93591b4	0.376803	discard	lr 5e-5
+bdb214d	0.375601	discard	grad clip 1.0
+c5c3ceb	0.360937	discard	GRU 2 layers
+022ed51	0.385817	discard	cosine annealing LR
+060eecb	0.366346	discard	lr 2e-4
+892fe60	0.365144	discard	input noise 0.1
+d64ec7c	0.040745	discard	EMA 0.999 (per-epoch decay too high, EMA stuck)
+cee85c8	0.375601	discard	EMA 0.99 (per-epoch)
+b0e3509	0.386418	discard	mixup alpha 0.2
+aedcb9e	0.389423	discard	patience 1000 (identical to best)
+d894697	0.356796	discard	batch size 16
+6328a9c	0.080288	discard	SGD momentum 0.9 (lr too low for SGD)
+1b4e222	0.368389	discard	dropout 0.2
+c4e0a7d	0.384976	discard	label smoothing 0.15
+381609e	0.379207	discard	bidirectional GRU
+bfc06c5	0.394231	keep	proj_dim 64
+e4726f3	0.375000	discard	proj_dim 96
+bfc06c5	0.393238	final	final test-set evaluation of best config (--test)

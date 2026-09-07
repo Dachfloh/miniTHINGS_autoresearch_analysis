@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+bf5d698	0.332091	keep	baseline (default config)
+8d9e888	0.331010	discard	label smoothing 0.1
+1b4330b	0.311899	discard	capacity proj 64 hidden 128
+fdf207b	0.340264	keep	gradient clipping max_norm 1.0
+9cfd23e	0.343269	keep	EMA decay 0.999
+a38c5b1	0.339063	discard	cosine annealing LR
+fb6276a	0.334856	discard	weight_decay 0.1
+1aeb782	0.391226	keep	mixup alpha 0.2
+e8bfd27	0.401803	keep	mixup alpha 0.4
+abaa346	0.401442	discard	mixup alpha 0.8
+1691630	0.402043	keep	capacity proj 64 hidden 128 + mixup 0.4
+c91bbeb	0.351202	discard	dropout_p 0.5
+2882865	0.410700	keep	batch_size 64
+6cbe2ff	0.405730	discard	cutmix 50/50 with mixup
+f21a1a6	0.416223	keep	lr 5e-4
+204b10b	0.411740	discard	lr 2.5e-4
+0ad6521	0.415947	discard	ema_decay 0.99
+f415c05	0.432774	keep	mixup alpha 0.6
+b5e4d6c	0.441739	keep	mixup alpha 0.8
+15ec16b	0.436818	discard	mixup alpha 1.0
+6a207b6	0.428843	discard	weight_decay 0.05
+3a6d110	0.441739	discard	gradient clipping 0.5 (equal to 1.0)
+233c80e	0.444143	keep	ema_decay 0.9995
+a59494a	0.436331	discard	ema_decay 0.9999
+04205fc	0.439871	discard	GRU 2 layers
+fa312f8	0.432660	discard	bidirectional GRU (hidden 128, out 256)
+63d2003	0.449600	keep	hidden_size 128 -> 256 (+ classifier in_features derived from hidden)
+94d8d5c	0.477683	keep	proj_dim 64 -> 128
+ee2929e	0.466752	discard	hidden_size 256 -> 512
+3c0230e	0.473038	discard	proj_dim 128 -> 256
+1318483	0.457738	discard	dropout_p 0.3 -> 0.2
+00edaab	0.452329	discard	temporal attention pooling (worse than last-timestep)
+7208b02	0.467191	discard	lr 5e-4 -> 1e-3
+94d8d5c	0.471788	final	final test-set evaluation of best config (--test)

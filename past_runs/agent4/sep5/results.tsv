@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+3369e5d	0.332091	keep	baseline (default config, +md5 weight-fname fix)
+6937af5	0.331010	discard	label smoothing 0.1 (less overfit, no val gain)
+997708e	0.343389	keep	weight_decay 0.1 (still improving at 2000 epochs)
+0ef249b	0.287620	discard	weight_decay 0.3 (over-regularized)
+1593c05	0.370553	keep	cosine LR annealing on wd 0.1
+0e41d54	0.379327	keep	n_epochs 3000 + cosine (still improving at cap)
+38c93fa	0.344712	discard	lr 0.002 + cosine (converged faster, worse optimum)
+71fb4f1	0.322476	discard	weight_decay 0.2 (over-regularized)
+8c02ae4	0.378606	discard	cosine T_max=4000 (no gain over T_max=3000)
+670e4c9	0.375962	discard	gradient clipping 1.0 (no gain)
+a9d74fb	0.334255	discard	bidirectional GRU hidden 48 (worse; converged early)
+7833c5e	0.403245	keep	proj_dim 64 (input bottleneck relief), 2200 epochs
+bceb678	0.394231	discard	proj 64 + 3000 epochs (slower decay overfit; 2200 was better)
+e42ab03	0.390385	discard	proj_dim 128 (overfits; 64 is sweet spot)
+abc4d4d	0.404447	keep	dropout 0.4 with proj 64 (less overfit)
+60d8d07	0.347957	discard	dropout 0.5 (too strong)
+2b19c6a	0.362981	discard	hidden 80 (overfit; capacity sweet spot is 64)
+290f0e3	0.341707	discard	label smoothing 0.1 + dropout 0.4 (too much softening)
+d669109	0.347115	discard	mean loss over all timesteps (dilutes signal)
+f73360d	0.339663	discard	EMA weights decay 0.999
+b2a85c4	0.416466	keep	proj 64, dropout 0.4, 3000 epochs
+b9cf323	0.329571	discard	batch size 64
+b0902a2	0.394591	discard	proj dim 96
+3fbcae2	0.363101	discard	dropout 0.45
+5b94076	0.385817	discard	weight decay 0.15
+ed0904b	0.335938	discard	LR warmup 100 ep
+c969ef0	0.378966	discard	lr 0.0015
+7be2ce5	0.404207	discard	3200 epochs
+449bf5d	0.376803	discard	dropout 0.35
+7fdf4e5	0.355769	discard	2-layer classifier
+ffa404c	0.322476	discard	decode window 50-300ms
+f6f41b9	0.352284	discard	aux mean-loss weight 0.2
+fcd7ba1	0.354567	discard	ReLU in input projection
+b2a85c4	0.381454	final	final test-set evaluation of best config (--test)

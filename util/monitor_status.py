@@ -31,7 +31,10 @@ def run_once():
                 reader = csv.DictReader(f, delimiter='\t')
                 rows = list(reader)          # read once, reuse below
                 if rows:
-                    max_value = max(float(row['test_acc']) for row in rows)
+                    if rows[-1]['status'] == 'final':
+                        print(f"Test accuracy: {rows[-1]['val_acc']}")
+                    
+                    max_value = max(float(row['val_acc']) for row in rows)
                     print(f"Max accuracy: {max_value}\n")
                 else:
                     print("starting ...")

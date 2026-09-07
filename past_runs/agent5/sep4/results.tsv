@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+c647b0d	0.332091	keep	baseline (default config)
+aeeb1fa	0.332091	keep	patience 500 -> 200 (same acc, 3x faster)
+82c5436	0.315505	discard	dropout 0.3 -> 0.5
+0070694	0.327885	discard	lr 1e-3 -> 3e-3
+51c34e5	0.255847	discard	loss at all timesteps (mean-over-time metric)
+7a11a07	0.308053	discard	proj_dim 64, hidden 128 (overfits)
+05da09f	0.324519	discard	label smoothing 0.1
+cbfa08d	0.350361	keep	learned temporal attention pooling over GRU hidden states
+de7505a	0.314423	discard	capacity bump with attention pooling
+1fde846	0.346154	discard	mean-pool instead of learned attention
+8d18001	0.362981	keep	bidirectional GRU + attention pooling
+d0bd415	0.365144	keep	ReduceLROnPlateau on val acc (0.3, patience 50)
+be5fbd6	0.385216	keep	weight_decay 0.01 -> 0.05
+65f67e1	0.405048	keep	weight_decay 0.05 -> 0.1
+c9e04f4	0.414062	keep	weight_decay 0.1 -> 0.2
+c00d530	0.415865	keep	weight_decay 0.2 -> 0.3
+dce901e	0.372356	discard	weight_decay 0.5 (past peak)
+8d0ddb1	0.423678	keep	proj 64, hidden 128 under wd 0.3
+c194fc2	0.391827	discard	proj 128, hidden 256 (too big)
+8e35492	0.355649	discard	2-layer GRU
+f57ef22	0.413561	discard	3-model softmax ensemble
+5df34e3	0.429688	keep	mixup alpha 0.2
+063058e	0.451923	keep	mixup alpha 0.4
+5d3e449	0.452524	keep	mixup alpha 0.8
+e376d6c	0.455448	keep	batch_size 32 -> 64
+b717d14	0.433716	discard	batch_size 128
+938958d	0.454847	discard	dropout 0.4 retest
+f19d1a7	0.441025	discard	lr 2e-3
+8a78688	0.465502	keep	decode window 50-400ms (was 50-250)
+fdff02b	0.453482	discard	decode window 50-450ms
+184108c	0.465502	discard	patience 400 (equal acc, slower)
+51a6de1	0.419552	discard	temporal-diff preprocessing
+6cc7fad	0.445069	discard	decode stride 5ms
+8a78688	0.471394	final	final test-set evaluation of best config (--test)

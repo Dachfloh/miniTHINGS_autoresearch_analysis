@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+c46f4f1	0.332091	keep	baseline (default config)
+4450339	0.323918	discard	dropout 0.5 + weight_decay 0.05 (too much reg)
+1f0f34d	0.331010	discard	label smoothing 0.1
+f9cc94e	0.333654	keep	cosine LR annealing (eta_min 1e-5, T_max n_epochs)
+872be12	0.339063	keep	lr 0.002 + cosine schedule
+75edf9e	0.349159	keep	lr 0.003 + cosine schedule
+b9607bd	0.369591	keep	lr 0.005 + cosine schedule
+8917da3	0.347356	discard	lr 0.008 + cosine (too high)
+fe42dbc	0.338341	discard	larger model (hidden 128, proj 64)
+4ea7ee8	0.303245	discard	smaller model (hidden 32, proj 16)
+3e75991	0.342548	discard	aux loss at all timesteps
+0d14bf8	0.351322	discard	bidirectional GRU
+79a7b97	0.373197	keep	decode window 50-350ms (lr 0.005 + cosine)
+79a7b97	0.350361	discard	decode window 50-400ms (too wide)
+049d4bb	0.323918	discard	2-layer GRU
+9d2a270	0.357332	discard	attention pooling over time
+955a82a	0.350481	discard	weight_decay 0.05
+11b4111	0.354210	discard	batch_size 64
+fd67174	0.349159	discard	dropout 0.15
+765c58e	0.375000	keep	cosine T_max=1000 (faster annealing)
+6f5ace2	0.348558	discard	cosine T_max=700 (too fast)
+f8e5137	0.361899	discard	cosine T_max=1200
+3529f63	0.375000	discard	patience 800 (equal, not simpler)
+bb62625	0.357692	discard	lr 0.004
+ae07ae1	0.380409	keep	mixup beta(0.2,0.2) soft-label
+4c31dcc	0.406851	keep	mixup beta(0.4,0.4)
+ec75104	0.420673	keep	mixup beta(0.6,0.6)
+b3a4405	0.413462	discard	mixup beta(0.8,0.8)
+544bd31	0.439904	keep	hidden 128/proj 64 + mixup beta(0.6,0.6)
+05657dc	0.457332	keep	hidden 192/proj 96 + mixup (49.5min, over budget)
+e3ca321	0.457332	keep	hidden 192 + mixup, n_epochs 1200/patience 400 (same acc as e29, fits budget)
+a3fe1b7	0.471154	keep	mixup beta(0.7,0.7) + hidden 192
+f6b02ec	0.460938	discard	mixup beta(0.8,0.8) + hidden 192
+a3fe1b7	0.466163	final	final test-set evaluation of best config (--test)
