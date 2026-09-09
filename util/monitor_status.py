@@ -33,9 +33,10 @@ def run_once():
                 if rows:
                     if rows[-1]['status'] == 'final':
                         print(f"Test accuracy: {rows[-1]['val_acc']}")
-                    
+                        rows = rows[:-1]
+
                     max_value = max(float(row['val_acc']) for row in rows)
-                    print(f"Max accuracy: {max_value}\n")
+                    print(f"Max val accuracy: {max_value}\n")
                 else:
                     print("starting ...")
         except FileNotFoundError:
