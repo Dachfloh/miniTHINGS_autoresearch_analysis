@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+9fabf87	0.332091	keep	baseline (default config, filename-length fix)
+79a4cef	0.338341	keep	weight_decay 0.05 (was 0.01)
+05a6ac2	0.343389	keep	weight_decay 0.1 (was 0.05)
+a8a46ee	0.330288	discard	weight_decay 0.2 (overshoots)
+1ac4e6b	0.325240	discard	dropout 0.4 with wd 0.1
+972c821	0.323678	discard	wider model (proj 64, hidden 128)
+53ba3a6	0.365385	keep	lr 0.0003 with wd 0.1
+9d4ee59	0.375000	keep	lr 0.0001 with wd 0.1
+f51cfcc	0.376202	keep	lr 0.00005 with wd 0.1
+e3df035	0.367788	discard	bidirectional GRU
+246450b	0.381010	keep	label smoothing 0.1
+0610b4f	0.376803	discard	label smoothing 0.2 (overshoots)
+4e5dfbe	0.378005	discard	cosine LR schedule
+96dc908	0.360937	discard	2-layer GRU
+fff594b	0.372791	discard	batch_size 64 (still rising at epoch cap)
+7defaf3	0.376722	discard	batch 64 + 4000 epochs
+0638e2c	0.374159	discard	mean-pool over time
+d5cbfcb	0.362380	discard	LSTM swap
+f7dd4d3	0.383413	keep	dropout 0.2 (wd 0.1 + LS 0.1)
+bab51cc	0.395192	keep	mixup alpha 0.2 (dropout 0.2)
+9cf1102	0.390625	discard	mixup alpha 0.4 (overshoots)
+b2226bb	0.394231	discard	lr 0.0001 with mixup 0.2
+aca6cf6	0.399038	keep	dropout 0.1 with mixup 0.2
+cc9248c	0.385817	discard	dropout 0.0 with mixup (overshoots)
+e533ce0	0.369591	discard	wd 0.15 with mixup
+155ad39	0.397236	discard	LS 0.05 with mixup
+ca0483e	0.388822	discard	hidden 96 with mixup
+cc11dfd	0.341106	discard	channel dropout 0.1 (too destructive)
+225a416	0.400841	keep	EMA weight averaging decay 0.99
+3837159	0.399038	discard	ema_decay 0.995 (too slow to peak)
+ac1aa3b	0.399038	discard	mixup 0.3 with EMA (overshoots)
+253d723	0.379207	discard	lr 0.00003 with mixup+EMA
+fe8a1d2	0.402644	keep	ema_decay 0.98 (best config)
+fe8a1d2	0.401050	final	final test-set evaluation of best config (--test)

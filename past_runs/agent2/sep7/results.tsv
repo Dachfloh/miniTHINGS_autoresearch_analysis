@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+9f02728	0.332091	keep	baseline (default config); fixed hashed results filename
+48e0e17	0.323918	discard	exp1: dropout 0.5 + wd 0.05 (over-regularized)
+5df4019	0.331010	discard	exp2: label smoothing 0.1 (no effect)
+29a3ff2	0.311899	discard	exp3: larger model proj64/hidden128 (overfit more)
+9f02728	0.348918	keep	exp4: decode window 50-450ms (40 steps) +info not params
+5889fa8	0.343750	discard	exp5: dropout 0.5 on wide window (underfit)
+32ad44b	0.341346	discard	exp6: bidirectional GRU (overfit more)
+ae96cf9	0.310457	discard	exp7: ReduceLROnPlateau (premature LR decay)
+a016741	0.365385	keep	exp8: aux all-timestep loss weight 0.5
+3be4bd7	0.363942	discard	exp9: aux loss weight 1.0 (worse than 0.5)
+99c68d7	0.371394	keep	exp10: proj_dim 64 (less input compression)
+316f012	0.378005	keep	exp11: proj_dim 128
+019f714	0.359135	discard	exp12: proj_dim 256 (overfit)
+2b858b5	0.363582	discard	exp13: hidden 128 (overfit)
+0de7045	0.345797	discard	exp14: batch_size 64 (worse)
+8e8fca4	0.361538	discard	exp15: input noise std 0.15 (hurt)
+7238bfe	0.353486	discard	exp16: 2 GRU layers + inter-dropout (overfit)
+2e76c3d	0.338341	discard	exp17: LSTM (worse than GRU)
+37162b4	0.354928	discard	exp18: lr 5e-4 (underfit)
+8c6bc2a	0.342909	discard	exp19: linear time loss ramp (diluted last step)
+182428a	0.349760	discard	exp20: dropout 0.4 (hurt)
+0603374	0.376803	discard	exp21: concat temporal diff (redundant, ~flat)
+c33d158	0.373197	discard	exp22: MLP head (slight overfit)
+dfc2a9f	0.386418	keep	exp23: weight_decay 0.03
+bec32e2	0.357091	discard	exp24: weight_decay 0.05 (underfit)
+937bcf3	0.358894	discard	exp25: label smoothing 0.1 (over-reg with wd)
+1cd22b3	0.379567	discard	exp26: cosine+warmup LR (slightly worse)
+bb9d9cc	0.350120	discard	exp27: proj 256 + wd 0.03 (still overfit)
+861ab31	0.348317	discard	exp28: weight_decay 0.02 (noisy dip)
+ed56d46	0.397236	keep	exp29: mixup alpha 0.2
+28f3b17	0.410457	keep	exp30: mixup alpha 0.4
+bfee702	0.430889	keep	exp31: mixup alpha 1.0
+b7e5a89	0.424279	discard	exp32: mixup alpha 2.0 (past peak)
+bfee702	0.428094	final	final test-set evaluation of best config (--test)

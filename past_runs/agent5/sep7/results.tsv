@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+3d1b985	0.332091	keep	baseline (default config); fixed weight filename to fit NAME_MAX
+bfe696e	0.311899	discard	wider model (proj_dim 64, hidden 128)
+9d93c65	0.336538	keep	stronger dropout 0.5
+1e9044f	0.323918	discard	weight_decay 0.05 (with dropout 0.5)
+b0cfb51	0.322837	discard	dropout 0.65
+0b1f746	0.354928	keep	lr 5e-4 (with dropout 0.5)
+0814b61	0.354928	discard	lr 2.5e-4 (equal to lr 5e-4)
+db79ccb	0.336899	discard	2-layer GRU with inter-layer dropout 0.2
+c39a18a	0.349159	discard	proj_dim 64 (hidden 64)
+8252e99	0.359976	keep	label smoothing 0.1 (lr 5e-4, dropout 0.5)
+b40b834	0.334135	discard	label smoothing 0.2
+7ae4d9d	0.333293	discard	bidirectional GRU
+5ca80fb	0.312260	discard	deep supervision (mean loss over all timesteps)
+b1c9036	0.348918	discard	swap GRU for LSTM
+4d61afc	0.340865	discard	input noise augmentation std 0.2
+83d6dd6	0.334135	discard	weight_decay 0.02 (with LS 0.1)
+da3037e	0.287380	discard	ReduceLROnPlateau on val loss
+402f9b9	0.302163	discard	temporal-diff input
+f946dcd	0.372356	keep	cosine annealing LR schedule (T_max=n_epochs)
+4433aa0	0.345913	discard	lr 7e-4 with cosine
+c118ab6	0.362981	discard	cosine T_max=1000 (faster anneal)
+fdd8348	0.331650	discard	batch_size 64
+023fdfc	0.350721	discard	dropout 0.4 (with cosine)
+c757757	0.354567	discard	GELU in input projection
+00f1ca8	0.306851	discard	proj_dim 16 (tighter input bottleneck)
+3cf5741	0.342668	discard	warmup (50ep) + cosine
+dcb1906	0.339303	discard	mixup augmentation (beta 0.2)
+89d8069	0.357572	discard	label smoothing 0.05 (with cosine)
+58898fc	0.372356	discard	patience 750 (equal to patience 500)
+43e14d6	0.318389	discard	hidden_size 48 (in_features 48)
+2873fad	0.342548	discard	gradient clipping max_norm 1.0
+aa879c3	0.370192	discard	weight_decay 0.005 (lighter)
+f946dcd	0.353966	discard	extended decode window 50-350ms (run-time arg; no file commit)
+f946dcd	0.368834	final	final test-set evaluation of best config (--test)

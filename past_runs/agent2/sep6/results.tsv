@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+bf46708	0.332091	keep	baseline (default config; weight-filename fix bf46708)
+b9a1fd9	0.343389	keep	exp01: weight_decay 0.01 -> 0.1
+b9a1fd9	0.287620	discard	exp02: weight_decay 0.1 -> 0.3 (too much regularization)
+b9a1fd9	0.304087	discard	exp03: dropout_p 0.3 -> 0.5 (hurt)
+ea7bc89	0.349159	keep	exp04: proj_dim 32 -> 128 (widen input projection)
+ce4f5d4	0.326803	discard	exp05: hidden_size 64 -> 128 (overfits)
+134c005	0.335096	discard	exp06: loss_mode=mean (all-timestep training loss)
+ff28060	0.352524	keep	exp07: label_smoothing 0.1
+5ae35a0	0.370192	keep	exp08: lr 1e-3 -> 3e-4
+94b81fe	0.387019	keep	exp09: lr 3e-4 -> 1e-4
+186289a	0.366587	discard	exp10: lr 1e-4 -> 3e-5 (too low)
+91230eb	0.369591	discard	exp11: hidden_size 128 retry at lr 1e-4 (still overfits)
+a07d242	0.387019	discard	exp12: bidirectional GRU (equal to uni, 2x params)
+048d99d	0.352407	discard	exp13: batch_size 32 -> 64 (hurt)
+103cdd7	0.394903	keep	exp14: batch_size 32 -> 16
+6e10bbe	0.386585	discard	exp15: batch_size 16 -> 8 (too small)
+e7faab7	0.360437	discard	exp16: weight_decay 0.1 -> 0.05 (hurt)
+370d4d1	0.385801	discard	exp17: weight_decay 0.1 -> 0.2 (hurt)
+9a93528	0.376092	discard	exp18: 2 GRU layers (hurt)
+e8eb9e0	0.374150	discard	exp19: proj_dim 128 -> 256 (hurt)
+9276e43	0.375607	discard	exp20: dropout_p 0.3 -> 0.2 (hurt)
+3b6a039	0.358495	discard	exp21: train-time input noise std 0.3 (hurt)
+103cdd7	0.396845	keep	exp22: decode window from 0ms (25 steps)
+103cdd7	0.339684	discard	exp23: decode window 0-500ms (late bins hurt)
+e465c11	0.408374	keep	exp24: residual temporal pooling h_T + mean(h), window 0ms
+53ee9a0	0.396845	discard	exp25: learned attention pooling (worse than plain mean)
+6aaf6d5	0.406311	discard	exp26: mixup alpha 0.2 (slightly worse)
+b9f0509	0.413835	keep	exp27: weight EMA decay 0.995 for validation
+3411abe	0.032282	discard	exp28: ema_decay 0.999 (EMA lags too far behind)
+c12ebec	0.410680	discard	exp29: ema_decay 0.99 (worse than 0.995)
+cc8db82	0.393204	discard	exp30: hidden_size 64 -> 96 (hurt)
+e1da26e	0.412621	discard	exp31: lr 1e-4 -> 1.5e-4 (marginal, worse)
+7fcfb9b	0.413835	discard	exp32: n_epochs 3000 patience 750 (equal to exp27, bigger budget)
+b9f0509	0.421789	final	final test-set evaluation of best config (--test)

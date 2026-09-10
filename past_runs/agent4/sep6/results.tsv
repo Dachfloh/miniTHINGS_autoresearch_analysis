@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+c6a8889	0.332091	keep	baseline (default config; filename compaction fix)
+196f8ec	0.343389	keep	exp1: weight_decay 0.1 (baseline 0.3321)
+801a7de	0.370553	keep	exp2: cosine LR annealing on wd 0.1
+4d29504	0.399639	keep	exp3: proj_dim 64 on cosine+wd01
+49fd8dd	0.405649	keep	exp4: dropout 0.4 with proj 64
+8521c4e	0.416466	keep	exp5: 3000 epochs (longer cosine) on proj64+do04
+544f262	0.334736	discard	exp6: hidden_size 128 (overfits, much worse)
+34addd8	0.340865	discard	exp7: decode window 50-350ms (worse; loss at last step too far)
+cd8fc28	0.339303	discard	exp8: label smoothing 0.1 (hurts)
+baf636b	0.326082	discard	exp9: loss at all timesteps (worse; early steps are noise)
+6ef512e	0.294952	discard	exp10: lr 0.002 (too high)
+45834fc	0.353486	discard	exp11: lr 0.0005 (worse than 1e-3)
+d267a88	0.340144	discard	exp12: dropout 0.5 (too much)
+d0cec37	0.344351	discard	exp13: proj_dim 128 (worse than 64)
+51cd2c8	0.320433	discard	exp14: train-time input noise 0.2 (worse)
+c60580c	0.394624	discard	exp15: 2-model ens e1500 p300 (member schedule too short)
+c0568ff	0.369591	discard	exp16: cummean pooled readout (worse)
+fd53370	0.393990	discard	exp17: 4000 epochs p600 (worse than e3000)
+83913ce	0.352764	discard	exp18: LSTM instead of GRU (worse)
+4c00883	0.342909	discard	exp19: weight_decay 0.05 (worse than 0.1)
+b56c36b	0.307813	discard	exp20: weight_decay 0.2 (much worse)
+ba638eb	0.334135	discard	exp21: 2-layer GRU (worse)
+5921b45	0.332933	discard	exp22: 100-epoch warmup + cosine (worse)
+90663dc	0.329571	discard	exp23: batch size 64 (worse)
+6624338	0.372596	discard	exp24: EMA weights decay 0.998 (smoother but lower peak)
+14d74b7	0.323678	discard	exp25: channel dropout 0.1 (worse)
+e44aee1	0.416466	discard	exp26: patience 800 (equal to exp5, no better epoch)
+ed6725f	0.329087	discard	exp27: hidden_size 96 (worse)
+48177f5	0.362139	discard	exp28: model init seed 43 (worse)
+d236cbc	0.346154	discard	exp29: learned temporal attention readout (worse; einsum->triton fix)
+9f7423c	0.323077	discard	exp30: window 100-250ms (worse; early bins help)
+7e10693	0.376803	discard	exp31: dropout 0.35 (worse than 0.4)
+b8d651f	0.386779	discard	exp32: lr 0.0012 (worse than 1e-3)
+8521c4e	0.381454	final	final test-set evaluation of best config (--test); val_acc 0.416466
