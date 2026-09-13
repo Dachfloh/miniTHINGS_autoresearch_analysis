@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+dd70d86	0.332091	keep	baseline (default config)
+05c7c94	0.336538	keep	dropout_p 0.3 -> 0.5
+4f57c9e	0.322115	discard	dropout_p 0.6 (too much)
+6b1c3e8	0.325120	discard	hidden_size 128 (overfits more)
+cd10687	0.328125	discard	hidden_size 32 (slightly worse)
+db695c8	0.348918	keep	lr 1e-3 -> 3e-4
+6401623	0.355529	keep	lr 3e-4 -> 1e-4
+095bed8	0.335938	discard	lr 3e-5 (too low)
+bcc75d2	0.353365	discard	weight_decay 0.05 (slightly worse, hit epoch cap)
+ddcf22f	0.351806	discard	batch_size 64 (worse; hit epoch cap while still improving)
+11278a7	0.356731	keep	proj_dim 32 -> 64 (+ n_epochs cap 3000)
+ed9870b	0.320673	discard	auxiliary loss at all timesteps (much worse)
+a28f305	0.362981	keep	lr 1e-4 -> 2e-4
+bed875d	0.364183	keep	cosine lr schedule (2e-4 -> 1e-5)
+bb6cb57	0.365385	keep	dropout_p 0.5 -> 0.4
+491ea64	0.353966	discard	dropout_p 0.3 (overfits)
+c536939	0.328726	discard	num_layers 2 (overfits)
+82069bc	0.360337	discard	weight_decay 0.03 (slightly worse)
+b83d0c1	0.355769	discard	label smoothing 0.1 (worse)
+f2b2e5d	0.366383	keep	batch_size 32 -> 16
+cb7212c	0.000000	crash	proj_dim 128 + batch_size 16 (reached 0.3847 but needed ~2787 ep / ~70 min: over 45-min budget)
+eb6c1a2	0.371995	keep	proj_dim 128 with batch_size 32 (best valid config, 23.3 min)
+cb7212c	0.000000	crash	timed replication of that config: killed by 45-min timeout at ep 1805 (best_val 0.3822)
+20421d0	0.372596	keep	patience 500 -> 1500 (40.4 min, hit epoch cap)
+0a660be	0.370631	discard	batch 16 with n_epochs 1600 (fits budget but worse)
+caa565e	0.328726	discard	proj_dim 256 (overfits badly)
+f750e71	0.365745	discard	dropout_p 0.5 at proj_dim 128 (worse)
+366b5f0	0.359135	discard	lr 1e-4 at proj_dim 128 (worse)
+04316d4	0.351683	discard	hidden_size 96 (overfits hard)
+eb6ccc2	0.378606	keep	weight_decay 0.01 -> 0.02 at proj_dim 128
+5ae4705	0.375000	discard	weight_decay 0.03 (slightly worse)
+017830b	0.360337	discard	lr 3e-4 at wd 0.02 (worse)
+52cdf48	0.380409	keep	separate post-RNN readout dropout (0.2 vs input 0.4)
+52cdf48	0.377012	final	final test-set evaluation of best config (--test)

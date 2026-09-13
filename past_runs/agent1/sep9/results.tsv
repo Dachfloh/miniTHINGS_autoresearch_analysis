@@ -1,0 +1,4 @@
+commit	val_acc	status	description
+8d2f6e6	0.332091	keep	baseline (default config)
+123f5ab	0.356731	keep	reduce learning rate (lr=0.0005)
+008a3e8	0.351876	final	final test-set evaluation of best config (--test)

@@ -1,0 +1,6 @@
+commit	val_acc	status	description
+8d2f6e6	0.332091	keep	baseline (default config)
+db90152	0.356731	keep	lr 0.0005
+76d0b7a	0.358173	keep	hidden_size 48
+52c44f7	0.372596	keep	hidden_size 32
+52c44f7	0.399483	final	final test-set evaluation of best config (--test)

@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+e37293b	0.332091	keep	baseline (default config, single split)
+3ee739e	0.337139	keep	dropout 0.5 + proj_dim 128 + input noise 0.2 (frontier config)
+16f2dab	0.347957	keep	cosine annealing lr, n_epochs 2000 -> 600
+533ce1d	0.321514	discard	deep supervision: train loss over last 20 timesteps
+d8c8a59	0.343750	discard	label smoothing 0.1
+2c1329a	0.324279	discard	decode window 50-400ms (more overfitting)
+5a13890	0.330529	discard	lr 5e-4 with cosine
+aa7ac68	0.344952	discard	EMA weights 0.999 for val/early stopping
+8506b68	0.310577	discard	hidden_size 64 -> 128 (severe overfit, not capacity limited)
+2d4f12d	0.349159	keep	weight_decay 0.01 -> 0.05
+5afb7e8	0.349519	keep	extend cosine anneal n_epochs 600 -> 1000
+177a94a	0.329687	discard	mixup alpha 0.2 (better val loss, worse accuracy)
+f5fa444	0.358534	keep	weight_decay 0.05 -> 0.1
+934e01e	0.335697	discard	weight_decay 0.1 -> 0.2 (overshoots)
+7b2c262	0.361779	keep	causal logit pooling over last 5 steps
+1503259	0.358774	discard	readout_pool_k 5 -> 10
+9398d6b	0.362981	keep	causal pooling of hidden state (k=5) before readout
+3d36db5	0.353726	discard	SWA over 4 cosine warm-restart cycles
+82f9477	0.385817	keep	ensemble of 2 independently-trained GRUs (logit averaging)
+1c8ba43	0.376202	discard	ensemble of 3 (n_epochs cut to 600 to fit budget)
+d05c1e2	0.349639	discard	channel dropout 0.1 (hurts: too much regularization)
+578a863	0.362380	discard	bidirectional GRU (neutral vs unidirectional 0.362981)
+5a676fd	0.383173	discard	heterogeneous ensemble (uni64 + bidir32) - no gain over homogeneous
+f6177c3	0.341346	discard	LSTM cell instead of GRU (worse)
+2e184ec	0.385216	discard	ensemble averaging in probability space (neutral vs logit 0.385817)
+a5a1964	0.378365	discard	logit pooling k=5 + hidden pooling k=5 combined (over-smooths)
+21cfd91	0.377163	discard	bagging: per-member bootstrap resamples (weakens members)
+8d3e639	0.385817	discard	free snapshot ensemble (26 models, 0.3804) - not adopted; bit-identical to exp18
+58085b0	0.377163	discard	clip global grad norm to 1.0 (slows convergence; grads do exceed 1.0)
+feb6236	0.378365	discard	hidden pooling window 5 -> 8 steps (worse; 5 is near the sweet spot)
+d5156a0	0.368149	discard	stronger input noise 0.2 -> 0.3 (overshoots the regularization optimum)
+9ba9a31	0.265986	discard	shuffle-time augmentation (catastrophic: the GRU depends on temporal order)
+329760c	0.379808	discard	weight_decay 0.1 -> 0.15 (confirms 0.1 is the optimum)
+82f9477	0.426395	final	final test-set evaluation of best config (--test)

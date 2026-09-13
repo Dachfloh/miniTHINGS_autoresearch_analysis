@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+a7274e3	0.332091	keep	baseline (default config)
+caf46f0	0.333654	keep	cosine lr schedule (lr 1e-3, else default)
+9f55e13	0.370553	keep	weight_decay 0.1 + cosine schedule
+693cfe4	0.337740	discard	weight_decay 0.3 (too strong, underfits)
+9ac3d55	0.347957	discard	label_smoothing 0.1 (hurts)
+79e17c5	0.329687	discard	dropout_p 0.5 (too strong)
+a88843e	0.365986	discard	mua signal, 84 ch (slightly below lfp)
+50b1b08	0.380409	keep	mua signal + dprime threshold 1.0 (153 ch)
+d61ad36	0.412380	keep	mua + dprime threshold 0.5 (275 ch)
+29501e7	0.420673	keep	mua, no channel selection (all 320 ch)
+c7298ec	0.414423	discard	wider model (proj 128/hidden 128) - overfits
+e4e0abe	0.423918	keep	all ROIs V1+V4+IT (1024 ch)
+a7fa4c7	0.409135	discard	decode window to 350ms (worse)
+6b4194e	0.430048	keep	lr 0.003 + cosine
+cb24d31	0.408774	discard	lr 0.005 (worse)
+f13ddfc	0.426923	discard	wd 0.2 with lr 0.003 (worse)
+031d430	0.418269	discard	avg_time 20ms bins (worse)
+585f1f8	0.219712	discard	temporal-diff input (much worse)
+2c1b9ce	0.426504	discard	batch_size 64 (worse)
+74054d3	0.470553	keep	mixup alpha 0.2
+413d0ae	0.500601	keep	mixup alpha 0.5
+ad77828	0.497596	discard	mixup alpha 1.0 (worse than 0.5)
+0034722	0.491587	discard	wd 0.05 with mixup 0.5 (worse, ran full 2000 epochs)
+9be007b	0.499399	discard	proj_dim 64 with mixup (marginally worse)
+ab2a136	0.509615	keep	mixup 0.5 + lr 0.005 (ran full 2000 epochs)
+13a1637	0.514183	keep	n_epochs 3000, patience 1000 (still improving at cap)
+6165bd3	0.501202	discard	n_epochs 5000 (cosine stretched too slow)
+42234db	0.465745	discard	dropout 0.2 with mixup (much worse)
+6c692d1	0.511418	discard	hidden_size 128 (marginally worse)
+6fb0e87	0.502404	discard	lr 0.0075 (worse)
+646a15a	0.523519	keep	n_ensemble 3 (seed ensemble, averaged predictions)
+a22479b	0.525351	keep	n_ensemble 5
+194e153	0.529627	keep	diversified ensemble: 5 members, per-member mixup_alphas 0.3-0.7
+194e153	0.494864	final	final test-set evaluation of best config (--test)

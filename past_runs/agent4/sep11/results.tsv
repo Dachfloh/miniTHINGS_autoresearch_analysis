@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+375e3e6	0.332091	keep	baseline (default config)
+f459f38	0.336538	keep	dropout_p 0.3 -> 0.5
+f533b6f	0.323918	discard	weight_decay 0.01 -> 0.05
+6d5b0eb	0.354928	keep	lr 1e-3 -> 5e-4
+134a27c	0.354928	discard	lr 5e-4 -> 2.5e-4 (tie)
+52aeaf9	0.318029	discard	hidden_size 64 -> 128
+8441443	0.337260	discard	hidden_size 64 -> 32
+9195bd6	0.363501	keep	batch_size 32 -> 64
+db9e891	0.355228	discard	batch_size 64 -> 128
+22816e4	0.333225	discard	dropout_p 0.5 -> 0.4
+b772f6f	0.330009	discard	dropout_p 0.5 -> 0.6
+8bd6d6d	0.241617	discard	loss at all timesteps (deep supervision)
+f3ae127	0.355087	discard	proj_dim 32 -> 64
+27592d6	0.335255	discard	lr 5e-4 -> 7.5e-4 (batch 64)
+5fe4f10	0.336506	discard	lr 5e-4 -> 3e-4 (batch 64)
+8c0d76d	0.340550	discard	bidirectional GRU
+da2fe57	0.331650	discard	label smoothing 0.1
+945dfe0	0.362250	discard	attention context over time
+a46f572	0.320719	discard	channel dropout on inputs (p=0.1)
+7c2de37	0.323285	discard	decode window extended to 50-440ms
+49e7af8	0.328970	discard	coarser 20ms bins (10 bins)
+693ce64	0.358904	discard	EMA of weights (decay 0.99)
+5205765	0.344643	discard	LSTM instead of GRU
+9c4d80f	0.333014	discard	step LR decay (x0.5 / 200 epochs)
+4ad6cfc	0.315034	discard	nonlinear 2-layer input projection
+c897464	0.344156	discard	lr 5e-4 -> 5.5e-4
+9345df8	0.339235	discard	auxiliary earlier-timestep loss (0.2)
+0576150	0.339235	discard	hidden_size 64 -> 80
+a0c57c4	0.351368	discard	weight_decay 0.01 -> 0.002
+1f1e932	0.327378	discard	Gaussian input noise (std 0.1)
+c44be03	0.363501	discard	patience 500 -> 1000 (tie; best val never beaten later)
+dd83b0e	0.345147	discard	proj_dim 32 -> 48
+233ca3c	0.327605	discard	orthogonal init of GRU weights
+9195bd6	0.374978	final	final test-set evaluation of best config (--test)

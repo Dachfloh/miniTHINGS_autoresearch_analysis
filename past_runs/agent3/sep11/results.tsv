@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+634c2a9	0.332091	keep	baseline (default config)
+7e6e69a	0.323918	discard	dropout 0.5, weight_decay 0.05
+5c84d6f	0.311899	discard	proj_dim 64, hidden_size 128 (more capacity)
+ad74265	0.356731	keep	lr 0.0005
+903b567	0.345312	discard	lr 0.0003
+7383401	0.338462	discard	weight_decay 0.001
+c140888	0.364784	keep	weight_decay 0.03 (lr 0.0005)
+d00ab51	0.354928	discard	weight_decay 0.05
+569dd94	0.355298	discard	batch_size 64
+21fb004	0.330947	discard	batch_size 16
+ab70c5d	0.326923	discard	train loss over all timesteps
+5584620	0.320913	discard	LSTM instead of GRU
+1a910d4	0.367788	keep	cosine lr schedule (lr 0.0005, wd 0.03)
+88813b6	0.354688	discard	lr 0.001 with cosine
+44eb8e2	0.356731	discard	dropout 0.4 with cosine
+7000583	0.356971	discard	proj_dim 64 (hidden 64)
+121b05e	0.363341	discard	label smoothing 0.1
+8844e33	0.348918	discard	aux loss on non-final timesteps (0.3)
+3f5af92	0.337500	discard	input noise std 0.1
+705510f	0.350481	discard	n_epochs 800 patience 200 (full cosine anneal)
+773186d	0.325120	discard	proj_dim 24 hidden_size 48 (smaller model)
+c04f486	0.368149	keep	bidirectional GRU (NON-CAUSAL; marginal +0.0004)
+ceee9e6	0.370793	keep	bidirectional GRU + hidden_size 48 (NON-CAUSAL)
+f70a20c	0.354327	discard	bidirectional + hidden_size 32
+2d2720d	0.363582	discard	bidirectional hidden 48, lr 0.0007
+ec1e6af	0.381611	keep	bidirectional hidden 48, weight_decay 0.05 (NON-CAUSAL)
+7b8b834	0.371394	discard	bidirectional hidden 48, weight_decay 0.08
+99aaab3	0.376202	discard	bidirectional hidden 48 wd 0.05, dropout 0.2
+2149a29	0.366947	discard	EMA weight averaging (decay 0.99)
+c4d54ff	0.364543	discard	bidirectional hidden 64 with weight_decay 0.05
+e3cc2fd	0.359135	discard	causal GRU with weight_decay 0.05 (control for bidirectional)
+1bcb115	0.371514	discard	bidirectional hidden 48 wd 0.05, proj_dim 48
+5da38ac	0.372957	discard	bidirectional hidden 48 wd 0.05, dropout 0.4
+ec1e6af	0.413671	final	final test-set evaluation of best config (--test)

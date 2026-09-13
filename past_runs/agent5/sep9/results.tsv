@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+8d2f6e6	0.332091	keep	baseline (default config)
+d41f192	0.307452	discard	hidden_size 128
+a02e9bc	0.356731	keep	lr 0.0005
+683ffff	0.341106	discard	proj_dim 64
+187fb29	0.355529	discard	lr 0.0001
+0894725	0.302043	discard	dropout 0.1
+bd9cdc5	0.338462	discard	weight_decay 0.001
+d3636d4	0.325721	discard	hidden 128, proj 64
+e3d3b7e	0.354928	discard	dropout 0.5
+c51d472	0.345312	discard	lr 0.0003
+d3462a8	0.291346	discard	proj_dim 16
+7d705c9	0.341752	discard	batch_size 64
+36f705f	0.344471	discard	weight_decay 0.0001
+76b4077	0.351923	discard	lr 0.0004
+02a3642	0.349159	discard	lr 0.0007
+c2b91a7	0.357572	keep	proj_dim 48
+8909ffc	0.337139	discard	lr 0.0006
+146ef1a	0.347716	discard	proj_dim 80
+632cd7e	0.336298	discard	dropout 0.2
+d55183f	0.356971	keep	lr 0.00045
+45aa313	0.365385	keep	lr 0.00042
+9c4c070	0.363582	discard	lr 0.00041
+d3e1d74	0.364784	discard	lr 0.00043
+ed03f15	0.367188	keep	lr 0.000425
+1efcba1	0.364784	discard	lr 0.000435
+ffc82a7	0.364183	discard	lr 0.000422
+bfb90d0	0.367788	keep	lr 0.000428
+9f14634	0.365986	discard	lr 0.000432
+e0e9460	0.366587	keep	lr 0.000426
+9cec279	0.365986	discard	lr 0.000424
+ad11a9b	0.367788	discard	lr 0.000427
+98cd51d	0.368389	keep	lr 0.0004275
+924d3d3	0.364784	discard	lr 0.00043
+98cd51d	0.373406	final	final test-set evaluation of best config (--test)

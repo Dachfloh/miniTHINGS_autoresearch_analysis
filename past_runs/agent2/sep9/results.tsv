@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+8d2f6e6	0.332091	keep	baseline (default config)
+c206a34	0.311899	discard	proj_dim 64, hidden_size 128
+b40f6e5	0.310577	discard	temporal_diff enabled, standardize disabled
+14bce56	0.372596	keep	smaller hidden_size (32) and lower lr (0.0005)
+4ccc330	0.358173	discard	hidden_size 48, lr 0.0005
+daae17b	0.339904	discard	lr 0.0001
+fef26fb	0.340264	discard	dropout 0.1
+cfaee1e	0.284856	discard	hidden_size 16
+3564350	0.355168	discard	proj_dim 64, hidden_size 32, lr 0.0005
+0519203	0.354567	discard	weight_decay 0.001
+0eebc4d	0.337058	discard	batch_size 64
+ba1f897	0.333534	discard	num_layers 2
+2dba8db	0.372596	keep	patience 1000
+06f0742	0.346755	discard	weight_decay 0.005
+ce53584	0.360577	discard	lr 0.0007
+32d2131	0.363582	keep	hidden_size 40
+505a4fb	0.347957	discard	hidden_size 44
+f005574	0.361178	discard	proj_dim 48, hidden_size 40
+f380b78	0.349159	discard	lr 0.0003
+0fd3052	0.362139	discard	hidden_size 42
+9429085	0.355529	discard	proj_dim 40, hidden_size 40
+61e17ee	0.375000	keep	dropout 0.2
+4fdc466	0.334736	discard	dropout 0.15
+7b7d454	0.357332	discard	dropout 0.25
+69cd43a	0.345553	discard	hidden_size 48
+a7b2cd5	0.367188	keep	lr 0.0006
+1169975	0.358534	discard	proj_dim 44, lr 0.0006
+9c131e7	0.350120	discard	proj_dim 38, lr 0.0006
+993ef79	0.337740	discard	hidden_size 44, lr 0.0006
+f8b9566	0.351322	discard	hidden_size 38, lr 0.0006
+4358818	0.382812	keep	lr 0.00055
+9a6a4f0	0.339543	discard	hidden_size 46
+494d089	0.361779	discard	weight_decay 0.002
+4358818	0.385373	final	final test-set evaluation of best config (--test)

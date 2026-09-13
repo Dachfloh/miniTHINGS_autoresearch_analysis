@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+de47254	0.332091	keep	baseline (default config)
+e57483f	0.336538	keep	dropout_p 0.3 -> 0.5
+40444e2	0.323918	discard	weight_decay 0.01 -> 0.05
+625650d	0.354928	keep	lr 1e-3 -> 5e-4
+da4b601	0.354928	discard	lr 5e-4 -> 2.5e-4 (tie with exp3)
+fcc8407	0.318029	discard	hidden_size 64 -> 128
+9445f6a	0.337260	discard	hidden_size 64 -> 32
+9bfdf4d	0.305288	discard	dropout_p 0.5 -> 0.7
+ce8e7fe	0.349159	discard	proj_dim 32 -> 64
+70ad6d5	0.367188	keep	proj_dim 32 -> 128
+0978208	0.352163	discard	proj_dim 128 -> 256
+baf5457	0.359135	discard	decode_time_last 250 -> 300
+153cb9c	0.343766	discard	batch_size 32 -> 64
+4fb88f1	0.338101	discard	swap GRU -> LSTM
+20ac0af	0.354567	discard	proj_dim 128 with lr 1e-3
+2f962c3	0.356490	discard	append whole-window mean context to each timestep
+0e9325f	0.319471	discard	deep supervision: loss at all timesteps
+f5349ae	0.367188	discard	n_epochs 2000 -> 3000 (tie; exp9 early-stopped naturally)
+023c92d	0.332692	discard	hidden_size 128 at proj_dim 128
+df42735	0.350361	discard	add GELU to input projection
+f808559	0.340745	discard	weight_decay 0.003 at proj_dim 128
+666423d	0.343149	discard	label smoothing 0.1
+87b40fa	0.356370	discard	temporal Conv1d input front-end
+5b2cb9f	0.367188	discard	cosine LR schedule (tie with exp9)
+f0b5958	0.335938	discard	proj_dim 256 with dropout 0.6
+fb1c561	0.332332	discard	decode_time_first 50 -> 100
+3ee73b1	0.294832	discard	num_layers 1 -> 2
+21fa4c9	0.361178	discard	dropout_p 0.5 -> 0.4
+fdfda7d	0.345913	discard	gaussian input noise std 0.1
+ceb300b	0.339904	discard	proj_dim 128 -> 192
+13378b5	0.328846	discard	hidden_size 64 -> 96
+16dcf87	0.362380	discard	bidirectional GRU
+39a5428	0.359375	discard	bidirectional GRU + lr 3e-4
+70ad6d5	0.367632	final	final test-set evaluation of best config (--test)
