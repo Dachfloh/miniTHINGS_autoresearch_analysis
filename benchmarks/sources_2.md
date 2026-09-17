@@ -1,0 +1,1 @@
+https://artificialanalysis.ai/models/comparisons?models=glm-5-3-flash%2Cglm-5-3%2Cdeepseek-v4-1-flash%2Cglm-5-2%2Cdeepseek-v4-flash&model-filters=open-source

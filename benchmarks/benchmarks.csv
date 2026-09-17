@@ -1,0 +1,12 @@
+benchmark,glm-5.2,glm-5.3,glm-5.3-flash,deepseek-V4-flash,deepseek-V4.1-flash
+AA-Briefcase,37,51,48,38,46
+GDPval-AA-v2,46,58,58,48,57
+AutomationBench,28,62,60,54,69
+Terminal-Bench-v4.0,,42,33,12,27
+SciCode,51,59,52,50,52
+Humanity's-Last-Exam,41,42,40,39,39
+GDP.pdf,10,11,15,11,13
+CritPt,21,19,15,17,14
+AA-Omniscience-Accuracy,24,34,28,40,46
+AA-Omniscience-Non-Hallucination-Rate,74,72,70,8,4
+AA-LCR-v1.1,78,80,80,80,84
