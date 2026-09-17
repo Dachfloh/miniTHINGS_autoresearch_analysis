@@ -1,0 +1,52 @@
+commit	val_acc	status	description
+a75454c	0.332091	keep	baseline (default config); 12.6 min
+0bbe8ad	0.309014	discard	wider model proj_dim 128 hidden 128; 28 min
+1cf6ecd	0.327885	discard	lr 0.003; 13.3 min
+b719222	0.356731	keep	lr 0.0005; 20.6 min
+b7b86d8	0.357933	keep	lr 0.00025; 15.5 min
+aa73411	0.355529	discard	lr 0.0001; 26 min
+43a763e	0.275276	discard	loss_at_all_timesteps (metric becomes time-avg acc); 13.8 min
+74ca4b3	0.354928	discard	dropout 0.5; 23.8 min
+0134aa3	0.355168	discard	weight_decay 0.05; 20.9 min
+1b8114e	0.366947	keep	label_smoothing 0.1; 29.6 min
+1045dbd	0.348317	discard	label_smoothing 0.15; 24 min
+1b8114e	0.325120	discard	decode window 50-450ms; 17.6 min
+9739c1e	0.361538	discard	bidirectional GRU; 26.2 min
+2129875	0.360337	discard	proj_dim 64; 23.2 min
+d90172b	0.348317	discard	input noise std 0.1; 32 min
+db335a0	0.334265	discard	batch_size 64; 11.9 min
+9fa744c	0.339543	discard	LSTM instead of GRU; 31.6 min
+bd3e5eb	0.331731	discard	2-layer GRU; 34.3 min
+3d921ba	0.349519	discard	ReduceLROnPlateau scheduler; 13.6 min
+c589ce6	0.344952	discard	hidden_size 96 (+crash retry); 30.4 min
+1b8114e	0.358173	discard	decode window 50-200ms; 29.9 min
+57a0d27	0.318870	discard	dropout 0.2; 11.2 min
+6cb56f4	0.353125	discard	aux deep supervision 0.25; 29.3 min
+ed2aaab	0.346875	discard	label_smoothing 0.08; 12.2 min
+5d0a1f0	0.360937	discard	lr 0.0003; 30.3 min
+8ab41cf	0.348678	discard	weight_decay 0.02; 12.9 min
+b6781a5	0.000000	crash	mixup alpha 0.2 killed at 2100s (epoch 1736/2000)
+2fbd85c	0.365986	discard	causal attention pooling (+crash retry); 26 min
+8f3220d	0.000000	crash	wd 0.005 run hit leftover attn code (reset error), never trained
+e9d7f31	0.359736	discard	weight_decay 0.005; 27.7 min
+d1e5a3a	0.339543	discard	hidden_size 48 (+crash retry); 16.1 min
+0ff5b9e	0.353125	discard	lr 0.0002; 17.7 min
+5a5b5fd	0.315865	discard	channel dropout 0.1; 18.2 min
+e61f611	0.370800	keep	2-model seed ensemble (patience 200, n_epochs 600); 18.8 min
+d0c0f24	0.362859	discard	ensemble 3 (patience 150, n_epochs 400); 19 min
+40b2672	0.364081	discard	ensemble 2 patience 250 n_epochs 700; 21.5 min
+f9a734d	0.371411	keep	ensemble 2 + lr 0.0003; 18.5 min
+b3ed3b9	0.351863	discard	ensemble 2 + lr 0.0004; 15.5 min
+b701d40	0.357972	discard	ensemble 2 + lr 0.0002; 18 min
+5e079e5	0.358583	discard	ensemble 2 + dropout 0.35; 16 min
+142087b	0.364081	discard	ensemble 2 + label_smoothing 0.12; 17 min
+e9d618a	0.361637	discard	ensemble 2 + weight_decay 0.008; 17 min
+a6450ce	0.355528	discard	ensemble 2 + batch_size 24; 20 min
+1a15b10	0.372633	keep	ensemble 2 + proj_dim 48; 16 min
+d551f96	0.381185	keep	ensemble 2 + proj_dim 64; 17 min
+093065f	0.365302	discard	ensemble 2 + proj_dim 96; 16 min
+cb2143c	0.370800	discard	ensemble 2 + proj 64 + hidden_size 96; 18 min
+8bf95a2	0.364692	discard	ensemble 2 + proj 64 + lr 0.00025; 17 min
+a99f9f4	0.388516	keep	ensemble 3 + proj 64; 25 min
+2ccdbd8	0.397679	keep	ensemble 4 + proj 64; 34 min
+2ccdbd8	0.360525	final	test acc of best config (ensemble 4 + proj 64); val_acc 0.397679; 33 min

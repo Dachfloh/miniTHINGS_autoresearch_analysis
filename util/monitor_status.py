@@ -10,20 +10,39 @@ import shutil
 import sys
 import time
 from datetime import datetime
+import re
+
 
 INTERVAL = 5.0
 
 files = [
-    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent1/results.tsv",
-    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent2/results.tsv",
-    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent3/results.tsv",
-    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent4/results.tsv",
-    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent5/results.tsv",
+    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent1/",
+    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent2/",
+    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent3/",
+    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent4/",
+    "/home/staff/g/glados/autoresearch/miniTHINGS_autoresearch-agent5/",
 ]
+
+def get_n_epochs(filepath):
+    pattern = re.compile(r"'n_epochs':\s*(\d+)")
+    with open(filepath, 'r') as f:
+        for line in f:
+            match = pattern.search(line)
+            if match:
+                return int(match.group(1))
+    return None  # not found
+
+def count_word(filepath, word="EPOCH"):
+    count = 0
+    with open(filepath, "r", encoding="utf-8") as f:
+        for line in f:
+            count += line.split().count(word)
+    return count
 
 
 def run_once():
-    for filepath in files:
+    for dirpath in files:
+        filepath = dirpath + "results.tsv"
         try:
             with open(filepath) as f:
                 print(filepath, '\nExperiments completed: ', (sum(1 for _ in f) - 2))
@@ -32,18 +51,26 @@ def run_once():
                 rows = list(reader)          # read once, reuse below
                 if rows:
                     if rows[-1]['status'] == 'final':
-                        print(f"Test accuracy: {rows[-1]['val_acc']}")
-                        rows = rows[:-1]
-
-                    max_value = max(float(row['val_acc']) for row in rows)
-                    print(f"Max val accuracy: {max_value}\n")
+                        max_value = max(float(row['val_acc']) for row in rows[:-1])
+                        print(f"Max val accuracy: {max_value}")
+                        print(f"Test accuracy: {rows[-1]['val_acc']}\n")
+                    else:
+                        max_value = max(float(row['val_acc']) for row in rows)
+                        print(f"Max val accuracy: {max_value}")
+		        
+                        epoch_count = count_word(dirpath + 'run.log')
+                        epoch_max = get_n_epochs(dirpath + 'run.log')
+                        filled = int(40 * epoch_count / epoch_max)
+                        bar = ("=" * filled)[:-1] + ">" if filled > 0 else ""
+                        print(f"|{bar:<40}| {epoch_count}/{epoch_max}\n")
                 else:
                     print("starting ...")
+
         except FileNotFoundError:
             print(filepath, "\n(not created yet)\n")
         except Exception as e:
             print(filepath, f"\n(error reading file: {e})\n")
-
+        
 
 def clear_screen():
     # ANSI: move cursor home + clear screen (same trick `watch` uses)

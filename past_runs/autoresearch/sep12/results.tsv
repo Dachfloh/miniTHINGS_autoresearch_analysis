@@ -1,0 +1,26 @@
+commit	val_acc	status	description
+a540155	0.331490	keep	baseline (default config, lfp IT dprime>1.5; after >255-char fname fix)
+1adb7e9	0.434014	keep	exp1: data upgrade (mua, all ROIs V1+V4+IT, no channel selection)
+0be3003	0.418149	discard	exp2: lr 0.003
+57e8ecb	0.477163	keep	exp3: mixup alpha 0.2
+2ba4229	0.498558	keep	exp4: mixup alpha 0.5
+828e78a	0.469351	discard	exp5: lr 0.005 with mixup 0.5
+1649f9f	0.484375	discard	exp6: weight_decay 0.1 + cosine schedule
+72e98fb	0.493389	discard	exp7: mixup alpha 1.0
+1e9b40d	0.532452	keep	exp8: bigger model (hidden 128, proj 48, dropout 0.45) with mixup 0.5
+317d355	0.530048	discard	exp9: hidden 256 / proj 64
+a0d9ebb	0.532452	discard	exp10: patience 800 / n_epochs 3000 (equal to exp8)
+40c7eb7	0.534856	keep	exp11: decode window 50-350ms
+61b993a	0.529808	discard	exp12: decode window 50-450ms
+bda8ab1	0.534615	discard	exp13: proj_dim 64
+771eb8b	0.529447	discard	exp14: 2-layer GRU
+4bbefc3	0.555895	keep	exp15: 3-member multi-seed ensemble (averaged last-step softmax)
+370f915	0.563225	keep	exp16: ensemble 5 members
+9ca8dd0	0.576665	keep	exp17: ensemble 10 members
+b98b0ee	0.576054	discard	exp18: ensemble 20 members (no gain over 10)
+f127669	0.576665	keep	exp19: n_parallel 8 (identical val_acc to exp17; runtime 9.7h unexplained — re-measure)
+c26b23b	0.572999	discard	exp20: dropout 0.5 (also: sequential 10-member took 9.9h = same as parallel-8; parallelism gives no speedup, reverted)
+45e407d	0.563836	discard	exp21: batch_size 64 (1.8x faster: 5.5h vs 9.9h, but -0.013 acc)
+84b2b20	0.566891	discard	exp22: batch 64 + lr 0.002 (6.2h; lr scaling does not recover batch-64 accuracy loss)
+8525f57	0.573610	discard	exp23: label smoothing 0.1 (11.8h)
+8525f57	0.575443	discard	exp24: per-member mixup alphas [0.2,0.5,1.0] (tie, slightly worse)

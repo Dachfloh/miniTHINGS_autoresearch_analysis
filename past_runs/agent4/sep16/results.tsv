@@ -1,0 +1,51 @@
+commit	val_acc	status	description
+a75454c	0.332091	keep	baseline (default config); 12 min
+ebb052c	0.338341	keep	weight_decay 0.05; 17 min
+3eb654d	0.323918	discard	dropout_p 0.5; 19 min
+0a2d3a7	0.342548	keep	lr 0.003 (with wd 0.05); 27 min
+6b61c0c	0.316466	discard	weight_decay 0.1; 23 min
+4d4621a	0.328486	discard	proj_dim 64 + hidden 128; 13 min
+7e7f86f	0.328125	discard	label smoothing 0.1; 20 min
+1eebe1b	0.326777	discard	batch_size 64; 12 min
+e652534	0.297476	discard	lr 0.006; 15 min
+4cb7676	0.356490	keep	ReduceLROnPlateau (f=0.5, pat=100, min_lr lr/10); 17 min
+d4a35af	0.369111	keep	scheduler pat=50, min_lr lr/20; 20 min
+9b6a53b	0.354447	discard	scheduler pat=25, min_lr lr/50; 17 min
+d5237ac	0.337139	discard	num_layers 2; 29 min
+f7c1b92	0.343750	discard	decode window 20-300ms; 15 min
+6116176	0.378966	keep	attention pooling over time; 14 min
+d33ed91	0.367548	discard	proj_dim 64 + hidden 128 with attn pool; 24 min
+77a5ae4	0.370553	discard	dropout_p 0.4; 23 min
+3ffab56	0.385577	keep	bidirectional GRU + attn pool; 25 min
+c74d120	0.393029	keep	proj_dim 64 with bidir GRU; 23 min
+edbbb2b	0.390024	discard	weight_decay 0.03; 30 min
+c74d120	0.000000	crash	time_jitter +-2 (killed at 35 min, best 0.3912 unconverged); 35 min
+a2e0c82	0.402644	keep	time_jitter +-1; 28 min
+91803a4	0.382212	discard	dropout_p 0.25 (with jitter); 23 min
+1b7d052	0.430288	keep	input mixup alpha 0.2; 28 min
+9b03849	0.000000	crash	mixup 0.4 (killed at 35 min, best 0.4537 unconverged); 35 min
+38a357c	0.430288	discard	mixup 0.2 + patience 300 (reset reverted mixup; equals exp23); 24 min
+14c9244	0.445913	keep	mixup 0.4 + patience 300; 28 min
+cec43f2	0.000000	crash	mixup 0.6 (killed at 35 min, best 0.4501 unconverged); 35 min
+71944d2	0.445913	discard	n_epochs 1300 only - reset had reverted mixup to 0.4 (dup of exp26); 26 min
+d93aa89	0.450120	keep	mixup 0.6 + n_epochs 1300; 31 min
+d287138	0.450721	keep	weight_decay 0.03 with mixup 0.6; 30 min
+c9c8e16	0.426683	discard	weight_decay 0.01; 26 min
+0e135b8	0.439303	discard	hidden 96 bidir; 23 min
+1f6a23e	0.393029	discard	temporal-diff preprocessing; 27 min
+5a2141d	0.450721	discard	scheduler min_lr lr/50 (identical to exp30); 30 min
+aa01fd3	0.451322	keep	proj_dim 96; 29 min
+254cc25	0.367188	discard	time-cutmix segment mixing; 29 min
+af09d90	0.442308	discard	concat attn-pool + last hidden; 23 min
+c58eae6	0.444111	discard	MLP attention scorer; 31 min
+873f159	0.426683	discard	mixup 0.8; 19 min
+8bd2a35	0.423678	discard	time_jitter +-2 with mixup; 28 min
+1e5ed92	0.435096	discard	2-head attention pooling; 31 min
+f817a0c	0.439904	discard	mixup alpha 0.5; 23 min
+5859d04	0.430556	discard	batch_size 24; 29 min
+1a518f4	0.454327	keep	scheduler factor 0.7; 30 min
+7f42a00	0.436298	discard	scheduler factor 0.8; 29 min
+75fb665	0.447115	discard	lr 0.0025; 29 min
+0b0b33c	0.434495	discard	dropout_p 0.35; 29 min
+0f61a9a	0.454327	discard	patience 350 + n_epochs 1350 (equals exp44); 31 min
+1a518f4	0.426630	final	final test-set evaluation of best config (--test); 30 min

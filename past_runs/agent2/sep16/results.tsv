@@ -1,0 +1,51 @@
+commit	val_acc	status	description
+a75454c	0.332091	keep	baseline (default config); 12 min
+4374ceb	0.327885	discard	lr 0.003; 13 min
+a25d4cf	0.311899	discard	hidden 128, proj 64; 14 min
+4dc63ac	0.323918	discard	dropout 0.15; 27 min
+7ba2483	0.269405	discard	loss at all timesteps (metric=mean over time); 27 min
+9a8da12	0.337139	keep	aux loss at all timesteps, last-step metric; 27 min
+e2f8c89	0.333293	discard	weight_decay 0.05 (on aux-loss base); 22 min
+f5df54b	0.328125	discard	label_smoothing 0.1 (on aux-loss base); 10 min
+44e3382	0.340505	keep	bidirectional GRU (on aux-loss base); 20 min
+cdca8fc	0.344643	keep	batch size 64; 17 min
+8da4faa	0.332308	discard	batch size 128; 8 min
+b77dda4	0.334151	discard	lr 0.002 (bs64 base); 18 min
+d48fca4	0.367431	keep	attention pooling over time; 17 min
+fef2306	0.337269	discard	4-head attention pooling; 19 min
+c0536f6	0.371037	keep	proj_dim 64; 17 min
+f71f4d4	0.296339	discard	2-layer GRU; 7 min
+c0536f6	0.365466	discard	decode window 0-350ms step 20; 10 min
+b0ca185	0.378411	keep	cosine LR schedule; 19 min
+aaec2dc	0.320004	discard	temporal-diff preprocessing; 13 min
+f91b7e5	0.356338	discard	hidden 96; 20 min
+a8ec356	0.322473	discard	GRU->LSTM; 7 min
+40c8583	0.369721	discard	weight EMA 0.999; 10 min
+5042c42	0.352017	discard	mixup alpha 0.2; 22 min
+39fce5a	0.359781	discard	lr 0.0008 with cosine; 7 min
+c99a238	0.354649	discard	dropout 0.4; 8 min
+02336f2	0.371475	discard	n_epochs 3000; 13 min
+a573408	0.368195	discard	MLP attention scorer; 15 min
+752cfc9	0.354470	discard	SE channel gate; 11 min
+b0ca185	0.375845	discard	time step 20ms (10 bins); 10 min
+acbd549	0.345131	discard	MLP classifier head; 20 min
+5b9848b	0.366668	discard	attention dropout 0.1; 19 min
+9e99662	0.400045	keep	warmup 100 epochs + cosine; 19 min
+a93f770	0.384258	discard	warmup 300 epochs; 10 min
+ed2b4a8	0.367967	discard	warmup 50 epochs; 9 min
+d8f1e17	0.358465	discard	lr 0.0015 (warmup_cosine base); 8 min
+b149eb4	0.410538	keep	pooled input projection concat; 20 min
+e68d669	0.392509	discard	pooled raw input concat; 20 min
+79bc008	0.395952	discard	dropout 0.2 retest; 20 min
+7ca6a52	0.362022	discard	proj_dim 96 retest; 7 min
+1ffe54b	0.393873	discard	attention position bias; 20 min
+0e534fd	0.398681	discard	weight_decay 0.02 retest; 12 min
+6681084	0.384583	discard	attention key projection concat; 9 min
+18a38f9	0.405893	discard	warmup 200 retest; 19 min
+e616fad	0.405405	discard	per-fold z-scoring; 19 min
+7c23fc0	0.373278	discard	warmup start factor 0.3; 15 min
+b04856d	0.402976	discard	batch size 48; 24 min
+c5a8d5a	0.359131	discard	time-flip augmentation; 11 min
+0b44c01	0.410262	discard	weight_decay 0.005; 19 min
+bd2b583	0.404691	discard	warmup 150 epochs; 12 min
+b149eb4	0.406698	final	final test-set evaluation of best config (--test)

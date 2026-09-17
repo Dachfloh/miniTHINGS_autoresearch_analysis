@@ -1,0 +1,51 @@
+commit	val_acc	status	descriptiona75454c	0.332091	keep	baseline (default config); 12 min
+2be96df	0.342548	keep	lr 0.003, weight_decay 0.05; 27 min
+53c6ae8	0.306851	discard	dropout_p 0.5; 22 min
+2a3e44b	0.313822	discard	aux loss all timesteps; 12 min
+52d62b5	0.328125	discard	label_smoothing 0.1; 20 min
+de4a3eb	0.275240	discard	lr 0.01; 13 min
+2be96df	0.326322	discard	wide window 50-430ms step20; 10 min
+9bac432	0.328486	discard	hidden 128, proj 64; 13 min
+a8a4663	0.360337	keep	ReduceLROnPlateau (0.5, patience 100) on val acc; 20 min
+dc0235b	0.360096	discard	scheduler patience 50; 16 min
+f619439	0.351562	discard	scheduler factor 0.2; 15 min
+a7444f2	0.336298	discard	temporal-diff preprocessing; 26 min
+7321261	0.360337	discard	patience 700 (tied with best); 23 min
+be58865	0.359709	discard	batch 16, n_epochs 1000; 25 min
+bd6b550	0.349727	discard	batch 64, n_epochs 4000; 14 min
+24899a4	0.379207	keep	concat raw+temporal-diff channels; 29 min
+66c1979	0.383774	keep	proj_dim 64 (+concat-diff); 29 min
+09127d8	0.362740	discard	hidden 128 (+concat-diff); 27 min
+74d4ec8	0.407212	keep	weight_decay 0.1; 28 min
+d316c94	0.387620	discard	weight_decay 0.2; 23 min
+1673fcf	0.383173	discard	proj_dim 128; 30 min
+426d5ce	0.378966	discard	dropout 0.4; 26 min
+92ccb63	0.401442	discard	mean-pool readout; 28 min
+15328fb	0.000000	crash	mixup 0.2; timeout kill 35 min (best_val 0.4207 at ~epoch 877, retrying with fewer epochs)
+197a716	0.000000	crash	mixup 0.2 retry n_epochs 1500; timeout kill again (mixup step does 2 forward/backward passes per step, fixing)
+aea1c04	0.420673	keep	mixup 0.2 (single fwd); 25 min
+4a1db96	0.442308	keep	mixup 0.4; 25 min
+7e667cc	0.442308	discard	n_epochs 1900 (tied with 1500); 31 min
+506c171	0.389423	discard	input channel dropout 0.2; 25 min
+436f8bf	0.449519	keep	mixup 0.6; 25 min
+813498c	0.451322	keep	mixup 0.8; 25 min
+55d455b	0.439303	discard	mixup 1.0; 26 min
+e75d546	0.439303	discard	dropout 0.2 with mixup 0.8; 25 min
+88f8561	0.456731	keep	hidden 128 with mixup 0.8; 25 min
+02ca3e6	0.454327	discard	proj_dim 128 with mixup; 25 min
+b00e2e4	0.442308	discard	2-layer GRU dropout 0.1; 28 min
+78d0936	0.455529	discard	weight EMA 0.999; 27 min
+0e6f397	0.462139	keep	lr 0.004 with mixup stack
+c7bb70d	0.457332	discard	lr 0.005; over bracket top
+e7746d8	0.462139	discard	weight EMA 0.995; exact tie with best
+6c51d44	0.459135	discard	proj_dim 96
+af9032f	0.000000	crash	timeout (35 min) hidden 192
+777d698	0.436298	discard	time jitter +-2 bins
+0fb17f6	0.462740	keep	attention-pooling readout over time bins
+23f138f	0.462740	discard	attention + EMA 0.995; exact tie
+6eab955	0.471154	keep	proj_dim 96 with attention readout
+0e113ce	0.469952	discard	proj_dim 128 with attention readout
+1025b44	0.455529	discard	dropout 0.35 with attn + proj96
+b52b0f9	0.459135	discard	hidden_size 96 with attn + proj96
+a554895	0.454327	discard	lr 0.005 with attn + proj96
+6eab955	0.471154	final	FINAL TEST run: test_acc 0.488138 (attn readout + proj 96)
