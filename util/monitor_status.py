@@ -58,13 +58,14 @@ def run_once():
                         max_value = max(float(row['val_acc']) for row in rows)
                         print(f"Max val accuracy: {max_value}")
 		        
-                        epoch_count = count_word(dirpath + 'run.log')
-                        epoch_max = get_n_epochs(dirpath + 'run.log')
-                        filled = int(40 * epoch_count / epoch_max)
-                        bar = ("=" * filled)[:-1] + ">" if filled > 0 else ""
-                        print(f"|{bar:<40}| {epoch_count}/{epoch_max}\n")
                 else:
-                    print("starting ...")
+                    print("Running baseline ...")
+
+                epoch_count = count_word(dirpath + 'run.log')
+                epoch_max = get_n_epochs(dirpath + 'run.log')
+                filled = int(40 * epoch_count / epoch_max)
+                bar = ("=" * filled)[:-1] + ">" if filled > 0 else ""
+                print(f"|{bar:<40}| {epoch_count}/{epoch_max}\n")
 
         except FileNotFoundError:
             print(filepath, "\n(not created yet)\n")

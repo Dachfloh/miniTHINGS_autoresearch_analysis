@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+714dc5f	0.332091	keep	baseline (default config); 13 min
+50945cc	0.269400	discard	loss at all timesteps (dense supervision); 28 min
+b0f0caa	0.323918	discard	dropout 0.5, wd 0.05; 19 min
+ec973d7	0.327885	discard	lr 0.003; 13 min
+76551ad	0.311899	discard	hidden 128, proj 64; 14 min
+d26b958	0.310577	discard	temporal-diff preprocessing; 14 min
+1fff8b5	0.345913	keep	bidirectional GRU; 30 min
+2ffb7e3	0.361538	keep	cosine lr scheduler + bidirectional GRU; 30 min
+7bf4f27	0.351322	discard	cosine + lr 0.003; 28 min
+811da09	0.360337	discard	attention pooling (bidir+cosine); 33 min
+5b38c3d	0.330772	discard	batch 64, 4000 epochs, cosine T_max 4000; 15 min
+8a75f83	0.299399	discard	2-layer bidirectional GRU + cosine; 24 min
+537c493	0.364543	keep	longer schedule 2500 epochs, patience 600; 38 min
+2243d77	0.365385	keep	weight_decay 0.02; 34 min
+a796289	0.335938	discard	dropout 0.2; 38 min
+5ec3a8c	0.333894	discard	dropout 0.4; 23 min
+57c5748	0.330048	discard	label smoothing 0.1; 15 min
+9a43a0a	0.359976	discard	wider decode window 50-450ms stride 25; 37 min
+6c75fe1	0.375601	keep	proj_dim 64; 31 min
+d3413d4	0.346755	discard	proj_dim 128; 37 min
+b61295b	0.362139	discard	hidden 96 with proj 64; 38 min
+bce8de5	0.357091	discard	lr 0.0015; 39 min
+d0e9418	0.325721	discard	EMA weight averaging 0.999; 38 min
+5d41fae	0.342548	discard	gaussian input noise 0.2; 17 min
+286d771	0.413221	keep	mixup alpha 0.2; 44 min
+1ff1d0a	0.452524	keep	mixup alpha 1.0; 44 min
+cc3e3ad	0.466947	keep	mixup alpha 2.0; 45 min
+c3ea6a9	0.464543	discard	mixup alpha 4.0; 45 min
+832ab65	0.457332	discard	dropout 0.2 with mixup 2.0; 46 min
+50239a9	0.476562	keep	hidden 128 with mixup 2.0; 44 min
+18179c8	0.000000	crash	hidden 192 with mixup 2.0 (timeout kill at 3000s, epoch 1542, no pickle); 50 min
+8c388f9	0.469952	discard	lr 0.002 with mixup 2.0; 44 min
+efe26dd	0.466346	discard	weight_decay 0.05 with mixup 2.0; 44 min
+50239a9	0.486465	final	final test-set evaluation of best config (--test)

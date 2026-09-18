@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+714dc5f	0.332091	keep	baseline (default config); 12 min
+e8e6ca7	0.327885	discard	lr 0.003; 13 min
+3053efe	0.311899	discard	proj_dim 64, hidden 128; 14 min
+cd67b55	0.336538	keep	dropout_p 0.5; 18 min
+1bf144f	0.323918	discard	weight_decay 0.05 (with dropout 0.5); 19 min
+27d8146	0.312620	discard	num_layers 2 (with dropout 0.5); 20 min
+db60228	0.253486	discard	temporal-diff (std off, per-sess z) [NOTE: ran with leftover num_layers 2]; 14 min
+94a233e	0.304126	discard	batch_size 16 [NOTE: ran with leftover num_layers 2]; 45 min
+5edfa94	0.337019	keep	label_smoothing 0.1; 22 min
+1f85dc6	0.331130	discard	dropout_p 0.6; 29 min
+8f98080	0.350361	keep	concat trial-mean GRU feature (classifier in 128); 14 min
+d0ad79d	0.352885	keep	add max-pool context (classifier in 192); 16 min
+210829d	0.342548	discard	bidirectional GRU; 30 min
+d7e3488	0.351683	discard	proj_dim 48; 25 min
+d0ad79d	0.358774	keep	decode window 50-350ms (--decode-time-last 350, flag-only run); 32 min
+04d73e8	0.348317	discard	decode window 50-450ms; 16 min
+964ab4e	0.344952	discard	cosine LR annealing; 20 min
+c2944ba	0.348317	discard	input_noise 0.1; 21 min
+edd457f	0.369591	keep	mixup alpha 0.2; 23 min
+dc54e78	0.388341	keep	mixup alpha 0.4; 21 min
+ec1ae94	0.399038	keep	mixup alpha 0.8; 16 min
+b06c5ac	0.394832	discard	mixup alpha 1.5; 38 min
+7bc64bc	0.401442	keep	patience 800 (with mixup 0.8); 35 min
+7b326ef	0.404447	keep	lr 0.0015 (mixup 0.8, patience 800); 28 min
+0f1fa62	0.392428	discard	lr 0.002 (mixup 0.8, patience 800); 35 min
+b511bb7	0.400240	discard	mixup alpha 0.6; 39 min
+39f5ed3	0.394832	discard	remove label smoothing (mixup 0.8); 35 min
+e78b1b6	0.400240	discard	hidden 96 (mixup 0.8); 41 min
+1a8f7fa	0.402238	discard	batch_size 64 (mixup 0.8); 23 min
+0f6f4a0	0.386418	discard	weight_decay 0.02 (mixup 0.8); 39 min
+7f1f0ab	0.420072	keep	proj_dim 64 (with mixup 0.8); 39 min
+98377fc	0.405649	discard	proj_dim 96; 29 min
+4244412	0.415264	discard	hidden 96 + proj 64; 32 min
+7f1f0ab	0.417381	final	final test-set evaluation of best config (--test); 38 min

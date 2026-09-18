@@ -1,0 +1,36 @@
+commit	val_acc	status	description
+714dc5f	0.332091	keep	baseline (default config); 12 min
+406f223	0.337139	keep	loss at all timesteps (metric still last-step); 27 min
+5951919	0.334495	discard	lr 0.003 (worse than 0.001); 19 min
+74f3824	0.312500	discard	proj_dim 64 + hidden 128 (overfits, worse); 9 min
+1f1e48f	0.324519	discard	weight_decay 0.1 (worse than 0.01); 22 min
+9e41036	0.344952	keep	dropout_p 0.2; 10 min
+08fb059	0.321274	discard	dropout_p 0.1 (overshot, 0.2 is sweet spot); 10 min
+0dac588	0.325121	discard	batch_size 16 (worse than 32); 19 min
+40c8c3e	0.316707	discard	label smoothing 0.1 (worse); 11 min
+1cddb08	0.337500	discard	lr 0.002 (worse than 0.001); 22 min
+0113078	0.360577	keep	bidirectional GRU; 27 min
+e926029	0.359135	discard	proj_dim 64 w/ bidirectional (equal-worse than 32); 25 min
+126e6fb	0.314303	discard	2-layer bidirectional GRU (overfits); 16 min
+0113078	0.338702	discard	wider window 30-300ms (worse); 21 min
+2fe81d6	0.357332	discard	cosine LR annealing (worse); 25 min
+6ff28b2	0.341106	discard	grad clip 1.0 (worse); 20 min
+3c89022	0.308173	discard	bidirectional LSTM (worse than GRU); 19 min
+b385601	0.322476	discard	hidden_size 96 (overfits); 15 min
+d1a7273	0.314423	discard	input noise aug std 0.2 (worse); 22 min
+0113078	0.305769	discard	decode-time-step 5ms (denser bins, worse); 19 min
+4997ce9	0.338702	discard	linear-ramp time loss weighting (worse); 29 min
+9080c01	0.360577	discard	patience 1000 (equal, slower -> simpler kept); 31 min
+985450a	0.325841	discard	hidden_size 48 (underfits); 17 min
+1609554	0.357933	discard	EMA weight averaging 0.999 (worse); 15 min
+3d2b99b	0.000000	discard	[crash] partial-EMA state from bad reset (AttributeError) - retried from clean base; 2 min
+1b17db5	0.340505	discard	weight_decay 0.001 (worse than 0.01); 21 min
+c6ac796	0.348678	discard	attention-pooled readout (worse than plain bidir); 21 min
+0113078	0.342308	discard	window 60-250ms (worse than 50-250); 18 min
+690abd6	0.285337	discard	proj_dim 16 (too narrow); 10 min
+23be11e	0.345913	discard	init seed 123, worse - run variance ~2 percent; 23 min
+d14fb22	0.340505	discard	dropout 0.3 w/ bidirectional (worse than 0.2); 20 min
+aaa7d4f	0.324763	discard	batch_size 64 (worse); 8 min
+ca7d3b3	0.301803	discard	concat static window-avg features (worse); 17 min
+901d5a8	0.346274	discard	lr 0.0005 (worse than 0.001); 31 min
+0113078	0.365552	final	final test-set evaluation of best config, bidirectional GRU (--test); 28 min

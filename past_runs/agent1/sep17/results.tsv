@@ -1,0 +1,35 @@
+commit	val_acc	status	description
+714dc5f	0.332091	keep	baseline (default config); 12 min
+b29abff	0.311899	discard	exp1 hidden 128/proj 64 (worse than baseline); 14 min
+b29abff	0.327885	discard	lr 0.003 (worse than baseline); 13 min
+b29abff	0.269405	discard	loss at all timesteps (much worse); 27 min
+b29abff	0.336538	keep	dropout 0.3 -> 0.5; 19 min
+1e80e95	0.304087	discard	weight_decay 0.1 on dropout-0.5 base (worse); 19 min
+1e80e95	0.311659	discard	dropout 0.7 (worse; 0.5 is the peak); 26 min
+1e80e95	0.343750	keep	decode window 50-450ms (default 250 -> 450); 18 min
+de68f91	0.329687	discard	num_layers 2 (worse than 0.343750); 19 min
+de68f91	0.343750	discard	decode window 50-550ms (equal to 450; keep 450 for simplicity); 16 min
+de68f91	0.284615	discard	temporal-diff input (much worse); 14 min
+de68f91	0.340745	discard	lr 0.0005 (worse than 0.343750); 17 min
+de68f91	0.342718	discard	batch_size 16 (worse; also slow ~40 min)
+de68f91	0.000000	crash	stopped early - accidental config mix (lr 5e-4 + bs16 leftovers); state repaired
+de68f91	0.313462	discard	hidden 32 + proj_dim 64 (config mix-up: intended proj 64 on hidden 64 base); 15 min
+43751b8	0.352524	keep	bidirectional GRU (bidirectional flag in rnn_params); 25 min
+c5b906f	0.359375	keep	residual temporal self-attention 4 heads on biGRU; 16 min
+843cec4	0.346755	discard	label smoothing 0.1 (worse than 0.359375); 20 min
+562a42a	0.359375	discard	ReduceLROnPlateau (equal to best; dropped for simplicity); 16 min
+a0d62b3	0.349159	discard	attn_heads 8 (worse than 4 heads 0.359375); 15 min
+c5b906f	0.343510	discard	decode-time-step 5ms (worse than 10ms); 17 min
+50b4cbd	0.350361	discard	input + temporal derivative channels (worse than 0.359375); 15 min
+bd0d7a9	0.360337	keep	proj_dim 64 on hidden-64 base (valid redo of exp14); 28 min
+c329a33	0.350361	discard	hidden 96 on proj-64 base (worse than 0.360337); 33 min
+98489c0	0.291587	discard	train noise 0.5 (much worse); 14 min
+dde40d6	0.343510	discard	lr 0.0015 (worse than 0.360337); 29 min
+5ff1bb8	0.356971	discard	aux dense loss 0.2 (worse than 0.360337); 26 min
+1b63534	0.367548	keep	attn_heads 2 (better than 4/8); 44 min
+eb007c2	0.362380	discard	dropout 0.4 (worse than 0.5 with attn); 16 min
+8664696	0.343750	discard	SE channel gate reduction 4 (worse than 0.367548); 25 min
+1b63534	0.352764	discard	decode window 50-350ms (450 still better); 26 min
+e6c9fdb	0.371154	keep	weight_decay 0.01 -> 0.05; 36 min
+7a2b855	0.376202	keep	weight_decay 0.075; 17 min
+7a2b855	0.371237	final	final test-set evaluation of best config (--test)

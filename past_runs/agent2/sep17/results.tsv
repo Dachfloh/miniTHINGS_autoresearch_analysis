@@ -1,0 +1,34 @@
+commit	val_acc	status	description
+714dc5f	0.332091	keep	baseline (default config); 12 min
+d0288db	0.343389	keep	weight_decay 0.1; 27 min
+d0288db	0.304087	discard	dropout_p 0.5 (too much); 22 min
+d0288db	0.308173	discard	hidden_size 32 (less capacity); 26 min
+d0288db	0.316466	discard	lr 0.003; 23 min
+e9df5bc	0.365385	keep	lr 0.0003; 26 min
+e7210bf	0.375000	keep	lr 0.0001; 27 min
+fa05524	0.375601	keep	lr 0.00003; 26 min
+e9df5bc	0.375601	discard	n_epochs 3000 (same val_acc as 2000); 32 min
+fa05524	0.358855	discard	batch_size 64; 24 min
+9eeab9c	0.378365	keep	proj_dim 64; 25 min
+9eeab9c	0.372596	discard	proj_dim 128 (overfits); 25 min
+9eeab9c	0.367788	discard	hidden_size 128 (overfits); 26 min
+fa05524	0.324279	discard	train loss all timesteps; 19 min
+9eeab9c	0.338341	discard	decode window to 350ms (worse); 26 min
+fdf209c	0.393630	keep	cosine lr schedule, init lr 3e-4; 25 min
+cde4996	0.399639	keep	cosine init lr 1e-3; 26 min
+fdf209c	0.391587	discard	cosine init lr 3e-3; 26 min
+cde4996	0.384135	discard	label smoothing 0.1; 25 min
+cde4996	0.375601	discard	weight_decay 0.3; 26 min
+cde4996	0.350240	discard	num_layers 2 (overfits); 26 min
+cde4996	0.316587	discard	GRU -> LSTM; 12 min
+cde4996	0.358774	discard	temporal-diff input; 27 min
+cde4996	0.371755	discard	input noise std 0.1; 25 min
+cde4996	0.362740	discard	aux all-timestep loss w 0.2; 15 min
+f7631e0	0.411058	keep	mixup alpha 0.2; 26 min
+571c8b5	0.415024	keep	mixup alpha 0.4; 25 min
+08d4e5f	0.445913	keep	mixup alpha 1.0; 25 min
+08d4e5f	0.442308	discard	mixup alpha 2.0; 25 min
+9ef6e54	0.448317	keep	dropout 0.2 with mixup 1.0; 25 min
+9ef6e54	0.414062	discard	dropout 0.1; 18 min
+eef6d20	0.421875	discard	cosine init lr 0.002; 25 min
+9ef6e54	0.452968	final	final test-set evaluation of best config (--test)

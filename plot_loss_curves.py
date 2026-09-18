@@ -143,7 +143,7 @@ def plot_loss_curves(run_path: str | Path, out_path: str | Path | None = None) -
     axes[0, 0].legend(loc="upper right", frameon=True, fontsize=9, edgecolor=COLOR_GRID)
 
     if out_path is None:
-        out_path = PLOTS_DIR / "loss_curves" / f"{run_name}.png"
+        out_path = "loss_curves" + "/" + f"{run_name}.png"
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, dpi=150, bbox_inches="tight")
